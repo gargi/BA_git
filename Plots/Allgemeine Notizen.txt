@@ -1,0 +1,5 @@
+2do:
+
+- bei jedem Feature Beschreibung in den Ordner packen
+- Auffälligkeiten erklären
+- Phi-Daten gut zueinander vergleichbar (klar, da sie die selbe Einheit besitzen)

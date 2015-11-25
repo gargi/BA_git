@@ -1,0 +1,3 @@
+PRI jet num
+The number of jets (integer with value of 0, 1, 2 or 3; possible larger values have
+been capped at 3).
