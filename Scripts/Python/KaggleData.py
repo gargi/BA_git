@@ -4,8 +4,8 @@ import os
 
 scriptFolderPath = os.path.dirname(os.getcwd())
 mainFolderPath = os.path.dirname(scriptFolderPath)
-dataPath = (mainFolderPath + "\\Data")
-csvFile = dataPath + "\\Atlas-higgs-challenge-2014-v2.csv"
+dataPath = (mainFolderPath + "/Data")
+csvFile = dataPath + "/Atlas-higgs-challenge-2014-v2.csv"
 
 
 def _checkCustomFeatureList(customFeatureList):
