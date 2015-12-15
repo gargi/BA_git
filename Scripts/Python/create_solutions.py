@@ -25,14 +25,14 @@ def getLinRegrSolution():
 	filename="solution_LinR_thresh" + str(threshold) + ".csv"
 	writeSolutionCsv(filename,solutionData)
 
-def getLogRegrSolution():
+def getLogRegrSolution(threshold = 0.5):
 	import logisticregression as logr
 	solutionData = logr.calcSolution()
 	solutionData = solutionData.tolist()
 	for row in solutionData:
 		row[0] = int(row[0])
 		row[1] = int(row[1])
-		if float(row[2]) <= float(0.5):
+		if float(row[2]) <= float(threshold):
 			eventClass = "b"
 		else:
 			eventClass = "s"
