@@ -55,4 +55,8 @@ def writeSolutionCsv(fname,solutionData):
 
 if __name__ == "__main__":
 	# getLinRegrSolution()
-	higgsK.calculateFor(getLogRegrSolution())
+	higgsK.calculateFor(getLogRegrSolution(0.25))
+	higgsK.calculateFor(getLogRegrSolution(0.5))
+	# higgsK.calculateFor(getLogRegrSolution(0.75))
+	# higgsK.calculateFor(getLogRegrSolution(0.95))
+
