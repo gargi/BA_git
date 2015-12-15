@@ -75,12 +75,17 @@ def testLogisticRegression(trainData,testData):
 		else:
 			y_test.append(0)
 
-	#expData = logReg.calcSolution(x_train,y_train,eventList,x_test,y_test)
-	print(x_train[150])
-	print(np.shape(y_train))
-	print(y_train[150])
+	logReg.fit(x_train,y_train)
+
+
+	expData = logReg.calcSolution(x_train,y_train,eventList,x_test,y_test)
+	print(expData)
+	# print(x_train)
+	# print(y_train)
+	# print(np.shape(y_train))
+	# print(y_train[150])
 	#print(x_train[150][1])
-	print(trainData[0:2][0])
+	# print(trainData[0:2][0])
 
 	return "0"
 
