@@ -99,9 +99,8 @@ def plot(X,Y,logreg):
 
 	plt.show()
 
-def logreg():
-	x_train,y_train = getData(["t"])[1:3]
-	eventList,x_test,y_test = getData(["v","b"],hasErrorValues = True)[0:3]
+
+def logreg(x_train,y_train,eventList,x_test,y_test):
 	logreg = linear_model.LogisticRegression(C=1e5)
 
 	logreg.fit(x_train,y_train)
@@ -118,12 +117,10 @@ def logreg():
 	return eventList,predProb
 
 
-
-
-def calcSolution():
+def calcSolution(x_train,y_train,eventList,x_test,y_test):
 	import operator
 	
-	eventList,predProb = logreg()
+	eventList,predProb = logreg(x_train,y_train,eventList,x_test,y_test)
 
 	expData = np.ndarray([len(eventList),3])
 	for i  in range(0,len(expData)):
@@ -137,6 +134,8 @@ def calcSolution():
 
 	
 if __name__ == "__main__":
+	x_train,y_train = getData(["t"])[1:3]
+	eventList,x_test,y_test = getData(["v","b"],hasErrorValues = True)[0:3]
 	# logreg()
-	calcSolution()
+	calcSolution(x_train,y_train,eventList,x_test,y_test)
 	print("all done(?)")
