@@ -5,8 +5,8 @@ import higgsml_opendata_kaggle3 as higgsK
 
 scriptFolderPath = os.path.dirname(os.getcwd())
 mainFolderPath = os.path.dirname(scriptFolderPath)
-dataPath = (mainFolderPath + "\\Data")
-solPath = (dataPath + "\\Solutions\\")
+dataPath = (mainFolderPath + "/Data")
+solPath = (dataPath + "/Solutions/")
 
 
 def getLinRegrSolution():

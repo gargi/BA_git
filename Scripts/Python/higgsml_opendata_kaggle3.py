@@ -15,8 +15,8 @@ import math
 scriptFolderPath = os.path.dirname(os.getcwd())
 # scriptFolderPath = os.path.dirname(startingKitFolderPath)
 mainFolderPath = os.path.dirname(scriptFolderPath)
-dataPath = (mainFolderPath + "\\Data")
-solPath = (dataPath + "\\Solutions\\")
+dataPath = (mainFolderPath + "/Data")
+solPath = (dataPath + "/Solutions/")
 
 def create_solution_dictionary(solution):
     """ Read solution file, return a dictionary with key EventId and value the row, as well as the header
@@ -92,7 +92,7 @@ def AMS(s, b):
 
 def calculateFor(submissionFile):
      
-    solutionFile = (dataPath + "\\atlas-higgs-challenge-2014-v2.csv")
+    solutionFile = (dataPath + "/Atlas-higgs-challenge-2014-v2.csv")
     solutionDict,header = create_solution_dictionary(solutionFile)
     ilabel=header.index("Label")
     iid=header.index("EventId")
