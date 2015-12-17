@@ -1,5 +1,7 @@
 import csv
 import os
+import numpy as np
+
 
 
 scriptFolderPath = os.path.dirname(os.getcwd())
@@ -13,7 +15,7 @@ def _checkCustomFeatureList(customFeatureList):
 	return set(customFeatureList).issubset(originalFeatureList)
 
 	##create Dictionary out of csv-File
-def _createCsvDictionary():
+def createCsvDictionary():
 	csvF = csvFile
 	csvDict = {}
 	print("Reading csv file ",csvF)
@@ -24,6 +26,40 @@ def _createCsvDictionary():
 		for row in csvR:
 			csvDict[row[iid]] = row
 	return csvDict,header
+
+"""
+returns one feature of given set, making no further changes to it
+"""
+def getFeatureAsList(csvDict,header,featureName,kaggleSets,hasErrorValues=False):
+	if type(csvDict) is not dict:
+		print("ERROR! Attribute 1 is not of dict-type!")
+		return None
+	if featureName not in getFeatureListAll():
+		print("ERROR! Given feature is not part of CERN-Data")
+		return None
+	indexKaggleSet = header.index("KaggleSet")
+	indexFeature = header.index(featureName)
+
+	#start extracting wanted Data from csvDict(ionary)
+	featList = []
+	for event in csvDict:
+		if csvDict[event][indexKaggleSet] in kaggleSets:
+			feature = csvDict[event][indexFeature]
+			if feature is 's':
+				feature = 1
+			elif feature is 'b':
+				feature = 0
+			featList.append(feature)
+	return featList
+
+def getFeatureAsNpArray(csvDict,header,featureName,kaggleSets,hasErrorValues=False):
+	featList = getFeatureAsList(csvDict,header,featureName,kaggleSets,hasErrorValues=False)
+	n = len(featList)
+	featArray = np.zeros(n)
+	for i in range(0,n):
+		featArray[i] = float(featList[i])
+	return featArray
+
 
 #original feature-list
 def getFeatureListAll():
