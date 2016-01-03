@@ -15,7 +15,7 @@ datafile="atlas-higgs-challenge-2014-v2.csv"
 
 print("Reading the data file :",datafile)
 # store everything in memory
-alldata = list(csv.reader(open(datafile,"rb"), delimiter=','))
+alldata = list(csv.reader(open(datafile,"r"), delimiter=','))
 
 # first line is the list of variables, put it aside
 header        = alldata.pop(0)

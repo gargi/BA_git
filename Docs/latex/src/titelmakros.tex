@@ -10,7 +10,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\AN}{twoside}
 \newcommand{\AUS}{}
-%\newcommand{\englisch}{}
+\newcommand{\englisch}{}
 %\newcommand{\deutsch}{\usepackage[german]{babel}}
 
 %% Die folgenden auskommentierten Optionen dienen der automatischen
@@ -28,7 +28,73 @@
 %\pdfcompresslevel=9 % compression level for text and image;
 %\pdftrue \fi
 
+
+
 \documentclass[11pt,a4paper, \zweiseitig]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \usepackage{graphicx} % Used to insert images
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{color} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+   %\usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    
+
+    
+    
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\usepackage[inner=4cm,outer=2cm]{geometry}
+\usepackage{ifthen}
+\ifthenelse{\equal{\sprache}{deutsch}}{\usepackage[ngerman]{babel}}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{color,fancyhdr}
+\fancyhf{}
+\pagestyle{fancy}
+\definecolor{bleudefrance}{rgb}{0.0745, 0.4431, 0.7843} %HHU-Blau
+\renewcommand{\headrule}
+	{{\color{bleudefrance}%
+		\hrule height 2pt
+			width\headwidth
+		\vspace{1pt}%
+		\hrule height 1pt
+			width\headwidth
+		\vspace{-4pt}
+	}
+	{\renewcommand{\headrulewidth}{15cm} % remove lines as well
+	}}
+\renewcommand{\sectionmark}[1]{ \markboth{#1}{} }
+
+\ifthenelse{\equal{\zweiseitig}{twoside}}
+	{\fancyhead[LE]{\thepage \hskip6mm \textit{\nouppercase{\leftmark}}}}
+	{\fancyhead[LO]{\textit{\nouppercase{\leftmark}}}}
+\fancyhead[RO]{\textit{\nouppercase{\rightmark} \hskip6mm \thepage}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -40,8 +106,7 @@
 \usepackage[T1]{fontenc} %fuer richtige Trennung bei Umlauten
 \usepackage{fancybox} % fuer die Rahmen
 \usepackage{shortvrb}
-\usepackage{ifthen}
-\ifthenelse{\equal{\sprache}{deutsch}}{\usepackage[ngerman]{babel}}{}
+
 
 \usepackage{a4wide} % ganze A4 Weite verwenden
 
@@ -56,10 +121,11 @@
 %\fi
 
 %%%%%%%%%%%%%%%%%%%%%%% Massangaben fuer die Arbeit %%%%%%%%%%%%%%%
+
 \setlength{\textwidth}{15cm}
 
-\setlength{\oddsidemargin}{35mm}
-\setlength{\evensidemargin}{25mm}
+\setlength{\oddsidemargin}{40mm}
+\setlength{\evensidemargin}{20mm}
 
 \addtolength{\oddsidemargin}{-1in}
 \addtolength{\evensidemargin}{-1in}
@@ -71,7 +137,15 @@
 %\setcounter{secnumdepth}{4} %Nummerieren bis in die 4. Ebene
 %\setcounter{tocdepth}{4} %Inhaltsverzeichnis bis zur 4. Ebene
 
-\pagestyle{headings}
+%\pagestyle{headings}
+%\pagestyle{fancy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\headheight}{15pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \sloppy % LaTeX ist dann nicht so streng mit der Silbentrennung
 %~ \MakeShortVerb{\§}
@@ -225,6 +299,7 @@ Düsseldorf, den \abgabedatum \hspace*{2cm} & \underline{\hspace{6cm}}\\
 
 %\enlargethispage{\baselineskip}
 \clearpage
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Leere Seite, falls Inhaltsverzeichnis mit ungerader Seitenzahl und 
 % doppelseitiger Druck
