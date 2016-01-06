@@ -1,0 +1,1 @@
+%jupyter nbconvert --to latex note*.ipynb

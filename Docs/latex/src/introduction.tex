@@ -1,0 +1,15 @@
+\section{Introduction}\raggedbottom 
+\subsection{Motivation}
+\subsection{Goal}
+\pagebreak
+\subsection{Overview}
+\pagebreak
+     blablalba
+\pagebreak
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Leerseite bei zweiseitigem Druck
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifthenelse{ \( \equal{\zweiseitig}{twoside} \and \not \isodd{\value{page}} \)}
+	{\pagebreak \thispagestyle{empty} \cleardoublepage}{\clearpage}

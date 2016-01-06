@@ -1,0 +1,933 @@
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=blue,
+      linkcolor=darkorange,
+      citecolor=darkgreen,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    %Date: 04.01.2016
+    \section{Using logistic Regression on Toydata to get a high
+AMS}\label{using-logistic-regression-on-toydata-to-get-a-high-ams}
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\PY{k+kn}{import} \PY{n+nn}{math}
+\PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{linear\PYZus{}model} \PY{k}{as} \PY{n}{linMod}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    Data shall have the form of \([w,y,x_1,x_2]\) where
+
+\begin{itemize}
+\tightlist
+\item
+  \(w\) is a weight in the intervall \([0,1)\)
+\item
+  \(y\) is the label ``0'' for ``background'' or ``1'' for ``signal''
+\item
+  \(x_n\) are randomly generated features with respect to the label
+\end{itemize}
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{generateFeature}\PY{p}{(}\PY{n}{label}\PY{p}{,} \PY{n}{mu\PYZus{}s}\PY{p}{,} \PY{n}{mu\PYZus{}b}\PY{p}{,} \PY{n}{sigma\PYZus{}s}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{sigma\PYZus{}b}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{n}{label} \PY{o+ow}{is} \PY{l+m+mi}{1}\PY{p}{:}
+        \PY{n}{mu} \PY{o}{=} \PY{n}{mu\PYZus{}s}
+        \PY{n}{sigma} \PY{o}{=} \PY{n}{sigma\PYZus{}s}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{mu} \PY{o}{=} \PY{n}{mu\PYZus{}b}
+        \PY{n}{sigma} \PY{o}{=} \PY{n}{sigma\PYZus{}b}
+    \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{mu}\PY{p}{,}\PY{n}{sigma}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    Approximate Median Significance (AMS) defined as:
+
+\[AMS = \sqrt{2 { (s + b + b_r) log[1 + (s/(b+b_{reg}))] - s}}\]
+
+where
+
+\begin{itemize}
+\tightlist
+\item
+  \(b_{reg} = 10\) is a regulization term (set by the contest),
+\item
+  \(b = \sum_{i=1}^{n} w_i, y_i=0\) is sum of weighted background
+  (incorrectly classified as signal),
+\item
+  \(s = \sum_{i=1}^{n} w_i, y_i=1\) is sum of weighted signals
+  (correctly classified as signal),
+\item
+  \(log\) is natural logarithm
+\end{itemize}
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{calcAMS}\PY{p}{(}\PY{n}{s}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}    
+    \PY{n}{br} \PY{o}{=} \PY{l+m+mf}{10.0}
+    \PY{n}{radicand} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*}\PY{p}{(} \PY{p}{(}\PY{n}{s}\PY{o}{+}\PY{n}{b}\PY{o}{+}\PY{n}{br}\PY{p}{)} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{log} \PY{p}{(}\PY{l+m+mf}{1.0} \PY{o}{+} \PY{n}{s}\PY{o}{/}\PY{p}{(}\PY{n}{b}\PY{o}{+}\PY{n}{br}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{n}{s}\PY{p}{)}
+    \PY{k}{if} \PY{n}{radicand} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{radicand is negative. Exiting}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{exit}\PY{p}{(}\PY{p}{)}
+    \PY{k}{else}\PY{p}{:}
+        \PY{k}{return} \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{radicand}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{calcWeightSums}\PY{p}{(}\PY{n}{weights}\PY{p}{,}\PY{n}{preds}\PY{p}{,}\PY{n}{labels}\PY{p}{)}\PY{p}{:}
+    \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{0}
+    \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{0}
+    \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{preds}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+        \PY{n}{pred} \PY{o}{=} \PY{n}{preds}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+        \PY{n}{label} \PY{o}{=} \PY{n}{labels}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+        \PY{n}{weight} \PY{o}{=} \PY{n}{weights}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+        \PY{k}{if} \PY{n}{pred} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.}\PY{p}{:}
+            \PY{k}{if} \PY{n}{label} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.}\PY{p}{:}
+                \PY{n}{s} \PY{o}{+}\PY{o}{=} \PY{n}{weight}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{b} \PY{o}{+}\PY{o}{=} \PY{n}{weight}
+    \PY{k}{return} \PY{n}{s}\PY{p}{,}\PY{n}{b}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    actually generate data
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c}{\PYZsh{}toydata shall have n vectors with 5 dimensions}
+\PY{n}{n} \PY{o}{=} \PY{l+m+mi}{100000}
+\PY{c}{\PYZsh{}probability for signal\PYZhy{}label}
+\PY{n}{s\PYZus{}prob} \PY{o}{=} \PY{l+m+mf}{0.05}
+\PY{c}{\PYZsh{}random values will be used as weights for evaluation later}
+\PY{n}{weights} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+\PY{n}{labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+\PY{n}{x\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+\PY{n}{x\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{n}{weights}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{s\PYZus{}prob}\PY{p}{:}
+        \PY{n}{label} \PY{o}{=} \PY{l+m+mi}{1}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{label} \PY{o}{=} \PY{l+m+mi}{0}
+    \PY{n}{labels}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{label}
+    \PY{n}{x\PYZus{}1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{generateFeature}\PY{p}{(}\PY{n}{label}\PY{p}{,}\PY{n}{mu\PYZus{}s}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{mu\PYZus{}b}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+    \PY{n}{x\PYZus{}2}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{generateFeature}\PY{p}{(}\PY{n}{label}\PY{p}{,}\PY{n}{mu\PYZus{}s}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{mu\PYZus{}b}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    visualize
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{o}{\PYZpc{}}\PY{k}{pylab} inline
+\PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x\PYZus{}1}\PY{p}{,} \PY{n}{x\PYZus{}2}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{labels}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{splitList}\PY{p}{(}\PY{n}{xList}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+    \PY{n}{aList} \PY{o}{=} \PY{n}{xList}\PY{p}{[}\PY{p}{:}\PY{n}{n}\PY{p}{]}
+    \PY{n}{bList} \PY{o}{=} \PY{n}{xList}\PY{p}{[}\PY{n}{n}\PY{p}{:}\PY{p}{]}
+    \PY{k}{return} \PY{n}{aList}\PY{p}{,}\PY{n}{bList}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    split toydata into training- and testset for the classifier
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{n\PYZus{}train} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}
+
+\PY{n}{train\PYZus{}x\PYZus{}1}\PY{p}{,}\PY{n}{test\PYZus{}x\PYZus{}1} \PY{o}{=} \PY{n}{splitList}\PY{p}{(}\PY{n}{x\PYZus{}1}\PY{p}{,}\PY{n}{n\PYZus{}train}\PY{p}{)}
+\PY{n}{train\PYZus{}x\PYZus{}2}\PY{p}{,}\PY{n}{test\PYZus{}x\PYZus{}2} \PY{o}{=} \PY{n}{splitList}\PY{p}{(}\PY{n}{x\PYZus{}2}\PY{p}{,}\PY{n}{n\PYZus{}train}\PY{p}{)}
+\PY{n}{train\PYZus{}labels}\PY{p}{,}\PY{n}{test\PYZus{}labels} \PY{o}{=} \PY{n}{splitList}\PY{p}{(}\PY{n}{labels}\PY{p}{,}\PY{n}{n\PYZus{}train}\PY{p}{)}
+\PY{n}{test\PYZus{}weights} \PY{o}{=} \PY{n}{splitList}\PY{p}{(}\PY{n}{weights}\PY{p}{,}\PY{n}{n\PYZus{}train}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    For Comparison, we calculate the best possible AMS\\
+(case: every signal correctly detected)
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{calcMaxAMS}\PY{p}{(}\PY{n}{weights}\PY{p}{,}\PY{n}{labels}\PY{p}{)}\PY{p}{:}
+    \PY{n}{s}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{n}{calcWeightSums}\PY{p}{(}\PY{n}{weights}\PY{p}{,}\PY{n}{labels}\PY{p}{,}\PY{n}{labels}\PY{p}{)}
+    \PY{n}{ams} \PY{o}{=} \PY{n}{calcAMS}\PY{p}{(}\PY{n}{s}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Maximum AMS possible with this Data:}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{ams}\PY{p}{)}
+    \PY{k}{return} \PY{n}{ams}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{calcMaxAMS}\PY{p}{(}\PY{n}{test\PYZus{}weights}\PY{p}{,}\PY{n}{test\PYZus{}labels}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    we initialize the Logistic Regression Classifier, shape the input-data
+and fit the model
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{logReg} \PY{o}{=} \PY{n}{linMod}\PY{o}{.}\PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mi}{1}\PY{n}{e5}\PY{p}{)}
+
+\PY{n}{train\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{train\PYZus{}x\PYZus{}1}\PY{p}{,}\PY{n}{train\PYZus{}x\PYZus{}2}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+\PY{n}{test\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{test\PYZus{}x\PYZus{}1}\PY{p}{,}\PY{n}{test\PYZus{}x\PYZus{}2}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+\PY{n}{train\PYZus{}labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{train\PYZus{}labels}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+\PY{n}{test\PYZus{}labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{test\PYZus{}labels}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+
+\PY{n}{logReg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}labels}\PY{p}{)}
+
+\PY{n}{logReg}\PY{o}{.}\PY{n}{sparsify}\PY{p}{(}\PY{p}{)}
+
+\PY{n}{predProb} \PY{o}{=} \PY{n}{logReg}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{test\PYZus{}x}\PY{p}{)}
+\PY{n}{pred} \PY{o}{=} \PY{n}{logReg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}x}\PY{p}{)}
+\PY{n}{score} \PY{o}{=} \PY{n}{logReg}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}labels}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Score:}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{score}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{s}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{n}{calcWeightSums}\PY{p}{(}\PY{n}{test\PYZus{}weights}\PY{p}{,}\PY{n}{pred}\PY{p}{,}\PY{n}{test\PYZus{}labels}\PY{p}{)}
+\PY{n}{calcAMS}\PY{p}{(}\PY{n}{s}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    We successfully tested logistic Regression, now let's use it on actual
+CERN-Data.
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{KaggleData}\PY{p}{;}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{csvDict}\PY{p}{,}\PY{n}{header} \PY{o}{=} \PY{n}{KaggleData}\PY{o}{.}\PY{n}{createCsvDictionary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    Trainingset has key ``t''\\
+Public Testset has key ``p'' (note: ``p'' won't work, using private
+Testset (``v''))
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{getFeatureSets}\PY{p}{(}\PY{n}{featureName}\PY{p}{)}\PY{p}{:}
+    \PY{n}{trainFeature} \PY{o}{=} \PY{n}{KaggleData}\PY{o}{.}\PY{n}{getFeatureAsNpArray}\PY{p}{(}
+        \PY{n}{csvDict}\PY{p}{,}\PY{n}{header}\PY{p}{,}\PY{n}{featureName}\PY{p}{,}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{t}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{hasErrorValues} \PY{o}{=} \PY{k}{True}\PY{p}{)}
+    \PY{n}{testFeature} \PY{o}{=} \PY{n}{KaggleData}\PY{o}{.}\PY{n}{getFeatureAsNpArray}\PY{p}{(}
+        \PY{n}{csvDict}\PY{p}{,}\PY{n}{header}\PY{p}{,}\PY{n}{featureName}\PY{p}{,}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{v}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{hasErrorValues} \PY{o}{=} \PY{k}{True}\PY{p}{)}
+    \PY{k}{return} \PY{n}{trainFeature}\PY{p}{,} \PY{n}{testFeature}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{train\PYZus{}eventList}\PY{p}{,}\PY{n}{test\PYZus{}eventList} \PY{o}{=} \PY{n}{getFeatureSets}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{EventId}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\PY{n}{train\PYZus{}labels}\PY{p}{,}\PY{n}{test\PYZus{}labels} \PY{o}{=} \PY{n}{getFeatureSets}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Label}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\PY{n}{test\PYZus{}weights} \PY{o}{=} \PY{n}{getFeatureSets}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{KaggleWeight}\PY{l+s}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    We observe the relation Label \textless{}=\textgreater{} Weight
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{signal\PYZus{}sum} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{test\PYZus{}labels}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{background\PYZus{}sum} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{test\PYZus{}labels}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{signal\PYZus{}sum}\PY{p}{)}
+\PY{n}{signal\PYZus{}weight} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{background\PYZus{}weight} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{test\PYZus{}labels}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{n}{test\PYZus{}labels}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+        \PY{n}{signal\PYZus{}weight} \PY{o}{+}\PY{o}{=} \PY{n}{test\PYZus{}weights}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{background\PYZus{}weight} \PY{o}{+}\PY{o}{=} \PY{n}{test\PYZus{}weights}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{background\PYZus{}weight}\PY{o}{/}\PY{n}{background\PYZus{}sum}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{signal\PYZus{}weight}\PY{o}{/}\PY{n}{signal\PYZus{}sum}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    We can observe, that False signals will be weighted a lot heavier than
+True signals.
+
+If a classifier achieved a higher AMS while detecting less signals,\\
+we can make statements about the usabilty of the features, the
+classifier used.
+
+We choose features with beneficial properties for classifying.
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{p}{(}\PY{n}{train\PYZus{}DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{p}{,}
+ \PY{n}{test\PYZus{}DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{p}{)} \PY{o}{=} \PY{n}{getFeatureSets}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\PY{p}{(}\PY{n}{train\PYZus{}DER\PYZus{}pt\PYZus{}ratio\PYZus{}lep\PYZus{}tau}\PY{p}{,}
+ \PY{n}{test\PYZus{}DER\PYZus{}pt\PYZus{}ratio\PYZus{}lep\PYZus{}tau}\PY{p}{)} \PY{o}{=} \PY{n}{getFeatureSets}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{DER\PYZus{}pt\PYZus{}ratio\PYZus{}lep\PYZus{}tau}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    Using DER\_mass\_MMC was not allowed in the former contest, we use it
+here anyway to test our classifier
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{p}{(}\PY{n}{train\PYZus{}DER\PYZus{}mass\PYZus{}MMC}\PY{p}{,}
+ \PY{n}{test\PYZus{}DER\PYZus{}mass\PYZus{}MMC}\PY{p}{)} \PY{o}{=} \PY{n}{getFeatureSets}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{DER\PYZus{}mass\PYZus{}MMC}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{train\PYZus{}labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{train\PYZus{}labels}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+\PY{n}{test\PYZus{}labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{test\PYZus{}labels}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{calcMaxAMS}\PY{p}{(}\PY{n}{test\PYZus{}weights}\PY{p}{,}\PY{n}{test\PYZus{}labels}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{True Signals:}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{test\PYZus{}labels}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    We start with one feature and add more with every regression to see
+improvement of the AMS
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{logisticReg}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}labels}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}labels}\PY{p}{)}\PY{p}{:}
+    \PY{n}{logReg} \PY{o}{=} \PY{k}{None}
+    \PY{n}{logReg} \PY{o}{=} \PY{n}{linMod}\PY{o}{.}\PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mi}{1}\PY{n}{e5}\PY{p}{)}
+    \PY{n}{logReg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}labels}\PY{p}{)}
+    \PY{n}{logReg}\PY{o}{.}\PY{n}{sparsify}\PY{p}{(}\PY{p}{)}
+    \PY{n}{predProb} \PY{o}{=} \PY{n}{logReg}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{test\PYZus{}x}\PY{p}{)}
+    \PY{n}{pred} \PY{o}{=} \PY{n}{logReg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}x}\PY{p}{)}
+    \PY{n}{signals} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{pred}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}  
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{signals read:}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{signals}\PY{p}{)}
+    \PY{k}{if} \PY{n}{signals} \PY{o+ow}{is} \PY{o+ow}{not} \PY{l+m+mi}{0}\PY{p}{:}
+        \PY{n}{s}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{n}{calcWeightSums}\PY{p}{(}\PY{n}{test\PYZus{}weights}\PY{p}{,}\PY{n}{pred}\PY{p}{,}\PY{n}{test\PYZus{}labels}\PY{p}{)}
+        \PY{n}{ams} \PY{o}{=} \PY{n}{calcAMS}\PY{p}{(}\PY{n}{s}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{ams} \PY{o}{=} \PY{l+m+mi}{0}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{AMS:}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{ams}\PY{p}{)}
+    \PY{k}{return} \PY{n}{predProb}\PY{p}{,}\PY{n}{pred}\PY{p}{,}\PY{n}{score}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{train\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}
+    \PY{p}{[}\PY{n}{train\PYZus{}DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{p}{,}
+     \PY{n}{train\PYZus{}DER\PYZus{}pt\PYZus{}ratio\PYZus{}lep\PYZus{}tau}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+\PY{n}{test\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}
+    \PY{p}{[}\PY{n}{test\PYZus{}DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{p}{,}
+     \PY{n}{test\PYZus{}DER\PYZus{}pt\PYZus{}ratio\PYZus{}lep\PYZus{}tau}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+\PY{n}{pred} \PY{o}{=} \PY{n}{logisticReg}\PY{p}{(}
+    \PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}labels}\PY{p}{,}
+    \PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}labels}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{;}
+\PY{n}{pred}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{logRegFor}\PY{p}{(}\PY{n}{fList}\PY{p}{)}\PY{p}{:}
+    \PY{k}{for} \PY{n}{feature} \PY{o+ow}{in} \PY{n}{fList}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Feature:}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{feature}\PY{p}{)}
+        \PY{n}{trainList\PYZus{}x}\PY{p}{,}\PY{n}{testList\PYZus{}x} \PY{o}{=} \PY{n}{getFeatureSets}\PY{p}{(}\PY{n}{feature}\PY{p}{)}
+        \PY{n}{train\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{trainList\PYZus{}x}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+        \PY{n}{test\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{testList\PYZus{}x}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+        \PY{n}{logisticReg}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}labels}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}labels}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{;}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{p}{(}\PY{n}{train\PYZus{}PRI\PYZus{}tau\PYZus{}pt}\PY{p}{,}
+ \PY{n}{test\PYZus{}PRI\PYZus{}tau\PYZus{}pt}\PY{p}{)} \PY{o}{=} \PY{n}{getFeatureSets}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{PRI\PYZus{}tau\PYZus{}pt}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\PY{p}{(}\PY{n}{train\PYZus{}DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{p}{,}
+ \PY{n}{test\PYZus{}DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{p}{)} \PY{o}{=} \PY{n}{getFeatureSets}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\PY{p}{(}\PY{n}{train\PYZus{}DER\PYZus{}pt\PYZus{}h}\PY{p}{,}
+ \PY{n}{test\PYZus{}DER\PYZus{}pt\PYZus{}h}\PY{p}{)} \PY{o}{=} \PY{n}{getFeatureSets}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{DER\PYZus{}pt\PYZus{}h}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\PY{p}{(}\PY{n}{train\PYZus{}DER\PYZus{}pt\PYZus{}ratio\PYZus{}lep\PYZus{}tau}\PY{p}{,}
+ \PY{n}{test\PYZus{}DER\PYZus{}pt\PYZus{}ratio\PYZus{}lep\PYZus{}tau}\PY{p}{)} \PY{o}{=} \PY{n}{getFeatureSets}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{DER\PYZus{}pt\PYZus{}ratio\PYZus{}lep\PYZus{}tau}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\PY{p}{(}\PY{n}{train\PYZus{}DER\PYZus{}mass\PYZus{}transverse\PYZus{}met\PYZus{}lep}\PY{p}{,}
+ \PY{n}{test\PYZus{}DER\PYZus{}mass\PYZus{}transverse\PYZus{}met\PYZus{}lep}\PY{p}{)} \PY{o}{=} \PY{n}{getFeatureSets}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{DER\PYZus{}mass\PYZus{}transverse\PYZus{}met\PYZus{}lep}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    we are able to achieve a higher AMS by adjusting the decision-threshold
+(around 0.25)
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{bestThreshold}\PY{p}{(}\PY{n}{predProb}\PY{p}{)}\PY{p}{:}
+    \PY{n}{thresh} \PY{o}{=} \PY{l+m+mi}{0}
+    \PY{n}{maxAMS} \PY{o}{=} \PY{l+m+mi}{0}
+    \PY{n}{maxThresh} \PY{o}{=} \PY{l+m+mi}{0}
+    \PY{k}{for} \PY{n}{thresh} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+        \PY{n}{newPred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{predProb}\PY{p}{)}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{predProb}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{predProb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{thresh}\PY{p}{:}
+                \PY{n}{newPred}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+        \PY{n}{s}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{n}{calcWeightSums}\PY{p}{(}\PY{n}{test\PYZus{}weights}\PY{p}{,}\PY{n}{newPred}\PY{p}{,}\PY{n}{test\PYZus{}labels}\PY{p}{)}
+        \PY{n}{ams} \PY{o}{=} \PY{n}{calcAMS}\PY{p}{(}\PY{n}{s}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+        \PY{k}{if} \PY{n}{ams} \PY{o}{\PYZgt{}} \PY{n}{maxAMS}\PY{p}{:}
+            \PY{n}{maxThresh} \PY{o}{=} \PY{n}{thresh}
+            \PY{n}{maxAMS} \PY{o}{=} \PY{n}{ams}
+            \PY{n}{signals} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{newPred}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Maximum AMS:}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{maxAMS}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{with threshold}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{maxThresh}\PY{p}{)}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Signals read:}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{signals}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{train\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}
+    \PY{p}{[}\PY{n}{train\PYZus{}PRI\PYZus{}tau\PYZus{}pt}\PY{p}{,}
+     \PY{n}{train\PYZus{}DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{p}{,}
+     \PY{n}{train\PYZus{}DER\PYZus{}pt\PYZus{}h}\PY{p}{,}
+     \PY{n}{train\PYZus{}DER\PYZus{}pt\PYZus{}ratio\PYZus{}lep\PYZus{}tau}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+\PY{n}{test\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}
+    \PY{p}{[}\PY{n}{test\PYZus{}PRI\PYZus{}tau\PYZus{}pt}\PY{p}{,}
+     \PY{n}{test\PYZus{}DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{p}{,}
+     \PY{n}{test\PYZus{}DER\PYZus{}pt\PYZus{}h}\PY{p}{,}
+     \PY{n}{test\PYZus{}DER\PYZus{}pt\PYZus{}ratio\PYZus{}lep\PYZus{}tau}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+\PY{p}{(}\PY{n}{predProb}\PY{p}{,}
+ \PY{n}{pred}\PY{p}{)} \PY{o}{=} \PY{n}{logisticReg}\PY{p}{(}
+    \PY{n}{train\PYZus{}x}\PY{p}{,}
+    \PY{n}{train\PYZus{}labels}\PY{p}{,}
+    \PY{n}{test\PYZus{}x}\PY{p}{,}
+    \PY{n}{test\PYZus{}labels}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{;}
+\PY{n}{bestThreshold}\PY{p}{(}\PY{n}{predProb}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{train\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}
+    \PY{p}{[}\PY{n}{train\PYZus{}PRI\PYZus{}tau\PYZus{}pt}\PY{p}{,}
+     \PY{n}{train\PYZus{}DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+\PY{n}{test\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}
+    \PY{p}{[}\PY{n}{test\PYZus{}PRI\PYZus{}tau\PYZus{}pt}\PY{p}{,}
+     \PY{n}{test\PYZus{}DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+\PY{n}{predProb}\PY{p}{,}\PY{n}{pred} \PY{o}{=} \PY{n}{logisticReg}\PY{p}{(}
+    \PY{n}{train\PYZus{}x}\PY{p}{,}
+    \PY{n}{train\PYZus{}labels}\PY{p}{,}
+    \PY{n}{test\PYZus{}x}\PY{p}{,}
+    \PY{n}{test\PYZus{}labels}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{;}
+\PY{n}{bestThreshold}\PY{p}{(}\PY{n}{predProb}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{train\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}
+    \PY{p}{[}\PY{n}{train\PYZus{}DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{p}{,}
+     \PY{n}{train\PYZus{}DER\PYZus{}pt\PYZus{}ratio\PYZus{}lep\PYZus{}tau}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+\PY{n}{test\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}
+    \PY{p}{[}\PY{n}{test\PYZus{}DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{p}{,}
+     \PY{n}{test\PYZus{}DER\PYZus{}pt\PYZus{}ratio\PYZus{}lep\PYZus{}tau}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+\PY{n}{predProb}\PY{p}{,}\PY{n}{pred} \PY{o}{=} \PY{n}{logisticReg}\PY{p}{(}
+    \PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}labels}\PY{p}{,}
+    \PY{n}{test\PYZus{}x}\PY{p}{,}
+    \PY{n}{test\PYZus{}labels}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{;}
+\PY{n}{bestThreshold}\PY{p}{(}\PY{n}{predProb}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{train\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}
+    \PY{p}{[}\PY{n}{train\PYZus{}DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{p}{,}
+     \PY{n}{train\PYZus{}PRI\PYZus{}tau\PYZus{}pt}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+\PY{n}{test\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}
+    \PY{p}{[}\PY{n}{test\PYZus{}DER\PYZus{}met\PYZus{}phi\PYZus{}centrality}\PY{p}{,}
+     \PY{n}{test\PYZus{}PRI\PYZus{}tau\PYZus{}pt}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+\PY{n}{predProb}\PY{p}{,}\PY{n}{pred} \PY{o}{=} \PY{n}{logisticReg}\PY{p}{(}
+    \PY{n}{train\PYZus{}x}\PY{p}{,}
+    \PY{n}{train\PYZus{}labels}\PY{p}{,}
+    \PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}labels}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{;}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

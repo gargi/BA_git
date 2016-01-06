@@ -1,0 +1,65 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%notebook-packages%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	\usepackage{graphicx} % Used to insert images
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    %\usepackage{color} % Allow colors to be defined
+    \usepackage[svgnames]{xcolor}
+    \usepackage{listings}
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    %\usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    
+%%%%%%%%%FOLLOWING HAS TO BE IN THIS VERY ORDER!!!%%%%%%%%%%
+    \usepackage{fancybox,fancyvrb} % verbatim replacement that allows latex
+
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    
+    \usepackage{tikz} % Needed to box output/input
+    \usepackage{scrextend} % Used to indent output
+    \usepackage{needspace} % Make prompts follow contents
+    \usepackage{framed} % Used to draw output that spans multiple pages
+%%%%%%%%%%%%%%%%%%%%%%%%%%notebook-packages%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+	\usepackage[inner=4cm,outer=2cm]{geometry} % Used to adjust the document margins
+    
+    \usepackage{ifthen} % ithenelse-command
+    \usepackage{color} % allow color-definitions
+    \usepackage{fancyhdr}
+
+	%\usepackage[iso]{umlaute}
+	\usepackage[utf8x]{inputenc}
+	%\usepackage{makeidx} % um ein Index zu erstellen
+	
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Font %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\usepackage[nottoc]{tocbibind}
+	\usepackage[T1]{fontenc} %fuer richtige Trennung bei Umlauten
+	\usepackage{lmodern}            % have lmtt loaded; but...
+	\usepackage{palatino} % palatino Schriftart, %%nicht kompatibel mit Jupyter
+	%\usepackage{tgpagella}          % use "palatino" as main font, ...
+	\renewcommand{\ttdefault}{lmtt} % and use lmtt for teletype family
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+		\usepackage{shortvrb}
+
+	\usepackage{a4wide} % ganze A4 Weite verwenden
+	
+	
+	%\ifpdf
+	%\usepackage[pdftex,xdvi]{graphicx}
+	%\usepackage{thumbpdf} %thumbs fuer Pdf
+	%\usepackage[pdfstartview=FitV]{hyperref} %anklickbares Inhaltsverzeichnis
+	%\else
+	%\usepackage[dvips,xdvi]{graphicx}
+	%\usepackage{graphicx}
+	%\usepackage{hyperref} %anklickbares Inhaltsverzeichnis
+	%\fi
