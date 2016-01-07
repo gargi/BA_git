@@ -18,7 +18,7 @@ def _checkCustomFeatureList(customFeatureList):
 def createCsvDictionary():
 	csvF = csvFile
 	csvDict = {}
-	print("Reading csv file ",csvF)
+	#print("Reading csv file ",csvF)
 	with open(csvF, 'r') as f:
 		csvR = csv.reader(f)
 		header=next(csvR) # header of Dictionary
@@ -72,6 +72,13 @@ def getFeatureListAll():
 	'PRI_jet_subleading_eta', 'PRI_jet_subleading_phi', 'PRI_jet_all_pt', 'Weight', 'Label', 'KaggleSet', 'KaggleWeight']
 	return featureList
 
+def getFeatureSets(csvDict,header,featureName,testset = ["v"]):
+    trainFeature = getFeatureAsNpArray(
+        csvDict,header,featureName,["t"],hasErrorValues = True)
+    testFeature = getFeatureAsNpArray(
+        csvDict,header,featureName,testset,hasErrorValues = True)
+    return trainFeature, testFeature
+
 def getCustomKaggleData(kaggleSets,featureList,hasErrorValues=False):
 	if featureList is None:
 		featureList = getFeatureListAll()
@@ -96,7 +103,6 @@ def getCustomKaggleData(kaggleSets,featureList,hasErrorValues=False):
 		hasLabel = False
 
 	dataDict={}
-
 	for event in csvDict:
 		if csvDict[event][indexKaggleSet] in kaggleSets:
 
@@ -135,7 +141,7 @@ def getKaggleDataTraining(featureList = None):
 	return dataDict, dataHeader
 
 def getKaggleDataPublic(featureList = None):
-	dataDict, dataHeader = getCustomKaggleData(["p"],featureList)
+	dataDict, dataHeader = getCustomKaggleData(["b"],featureList)
 	return dataDict, dataHeader
 
 def getKaggleDataPrivate(featureList = None):
@@ -147,5 +153,5 @@ def getKaggleDataUnused(featureList = None):
 	return dataDict, dataHeader
 
 def getKaggleDataAll(featureList = None):
-	dataDict, dataHeader = getCustomKaggleData(["t","p","v","u"],featureList)
+	dataDict, dataHeader = getCustomKaggleData(["t","b","v","u"],featureList)
 	return dataDict, dataHeader

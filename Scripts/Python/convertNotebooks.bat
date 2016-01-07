@@ -1,1 +1,1 @@
-%jupyter nbconvert --to latex note*.ipynb
+%jupyter nbconvert --config ipython_nbconvert_config.py

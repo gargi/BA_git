@@ -1,5 +1,5 @@
 ((= This line selects the cell style. =))
-((* set cell_style = 'style_bachelor_nodoc.tplx' *))
+((* set cell_style = 'style_bachelor_setup.tplx' *))
 
 ((= This line inherits from the built in template that you want to use. =))
 ((* extends 'article.tplx' *))
