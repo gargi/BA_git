@@ -2,6 +2,7 @@
 
 \subsection{The formal problem}
 \subsection{The Data}
+\input{data}
 \subsection{The Evaluation}
 \input{noteAms}
 \pagebreak

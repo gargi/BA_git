@@ -1,0 +1,35 @@
+@MISC{higgsPaper,
+	AUTHOR =	"Claire Adam-Bourdarios and Glen Cowan and C´ecile Germain and Isabelle Guyon and Bal´azs K´egl and David Rousseau",
+	TITLE =		" Learning to discover: the Higgs boson
+machine learning challenge.",
+	YEAR =		"2015",
+	MONTH = 	"January",
+	howpublished = {\url{http://www.http://opendata.cern.ch/record/329}},
+	NOTE =		"Version 2.3",
+}
+
+@MISC{higgsData,
+  title = "Dataset from the ATLAS Higgs Boson Machine Learning Challenge 2014",
+  howpublished = {\url{http://www.http://opendata.cern.ch/record/328}},
+  note = {Accessed: 2015-12-10},
+}
+
+@MISC{higgsSoftware,
+	title = "Software examples for the ATLAS Higgs Learning Challenge 2014",
+	howpublished = {\url{http://www.http://opendata.cern.ch/record/331}},
+  	note = {Accessed: 2015-12-10},
+}
+
+@MISC{californiaPaper,
+	AUTHOR = "Jocelyn Perez, Ravi Ponmalai, Alex Silver, Dacoda Strack",
+	title = "ML2014: Higgs Boson Machine Learning
+Challenge",
+	howpublished = {\url{http://www.http://opendata.cern.ch/record/331}},
+  	note = {Accessed: 2015-12-10},
+}
+
+@MISC{higgsChallenge,
+	TITLE = "Higgs Boson Machine Learning Challenge",
+	howpublished = {\url{https://www.kaggle.com/c/higgs-boson}},
+	note = {Accessed: 2016-01-03},
+}
