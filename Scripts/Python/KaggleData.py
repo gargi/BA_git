@@ -99,10 +99,11 @@ def getCustomDataSet(featureList,csvDict=None,header=None,kSet = "v"):
 	data = np.zeros(shape = (len(labels),len(featureList)),dtype=float)
 	
 	for	feature in featureList:
-		i = header.index(feature)
+		i = featureList.index(feature)
 		data[:,i] = getFeatureAsNpArray(csvDict,header,feature,kSet,hasErrorValues=True)
+	new_header = featureList
 
-	return header, data, kWeights, labels
+	return new_header, data, kWeights, labels
 
 def getOneDataSet(csvDict=None,header=None,kSet = "v"):
 	if csvDict is None:
@@ -114,6 +115,6 @@ def getOneDataSet(csvDict=None,header=None,kSet = "v"):
 def getWholeDataSet(csvDict=None,header=None,kSet = "v"):
 	if csvDict is None:
 		csvDict,header = createCsvDictionary()
-	header, test_data, test_weights, test_labels = getOneDataSet(csvDict,header,kSet)
-	train_data, train_weights, train_labels = getOneDataSet(csvDict,header,"t")[1:4]
+	test_data, test_weights, test_labels = getOneDataSet(csvDict,header,kSet)[1:4]
+	header, train_data, train_weights, train_labels = getOneDataSet(csvDict,header,"t")
 	return header, test_data, test_weights, test_labels, train_data, train_weights, train_labels
