@@ -84,11 +84,40 @@ def getFeatureListOnlyData():
 	'PRI_jet_subleading_eta', 'PRI_jet_subleading_phi', 'PRI_jet_all_pt']
 	return featureList
 
-def getFeatureSets(featureName,header,test_data,train_data):
+def getFeatureListNoErrors(sloppy = True):
+	featureList = getFeatureListOnlyData()
+	errorFeatures = ['DER_mass_MMC',
+					 'DER_deltaeta_jet_jet',
+ 					 'DER_mass_jet_jet',
+ 					 'DER_prodeta_jet_jet',
+ 					 'DER_lep_eta_centrality',
+ 					 'PRI_jet_leading_pt',
+ 					 'PRI_jet_leading_eta',
+ 					 'PRI_jet_leading_phi',
+ 					 'PRI_jet_subleading_pt',
+ 					 'PRI_jet_subleading_eta',
+ 					 'PRI_jet_subleading_phi']
+	if sloppy is True:
+		errorFeatures.remove('DER_mass_MMC')
+	for feature in errorFeatures:
+		featureList.remove(feature)
+	return featureList
+
+def getFeature(featureName,header,test_data):
     index = header.index(featureName)
-    trainFeature = train_data[:,index]
-    testFeature = test_data[:,index]
+    feature = test_data[:,index]
+    return feature
+
+def getFeatureSets(featureName,header,test_data,train_data):
+    trainFeature = getFeature(featureName,header,train_data)
+    testFeature = getFeature(featureName,header,test_data)
     return trainFeature, testFeature
+
+def getBVFeatureSets(featureName,header,b_data,v_data,test_data,train_data):
+    b_feature = getFeature(featureName,header,b_data)
+    v_feature = getFeature(featureName,header,v_data)
+    train_feature,test_feature = getFeatureSets(featureName,header,test_data,train_data)
+    return b_feature, v_feature, train_feature, test_feature
 
 def getCustomDataSet(featureList,csvDict=None,header=None,kSet = "v"):
 	if csvDict is None:

@@ -73,6 +73,47 @@ def createToyData(n = 100,dim = 3,s_prob = 0.05):
             data[i,j]=generateFeature(label,mu_s=(j-1)*5,mu_b=(j-1)*20)
     return data
 
+def customThreshold(pred,t = 0.5):
+    newPred = np.zeros(len(pred))
+    for i in range(0,len(pred)):
+        if pred[i] > t:
+            newPred[i]=1
+    return newPred
+
+
+def createSolutionArray(eventList,soft_prediction):
+    expData = np.ndarray([len(eventList),3])
+    for i  in range(0,len(expData)):
+        expData[i]= [eventList[i],0,soft_prediction[i]]
+
+    expData = expData[np.argsort(expData[:,2])]
+
+    for i in range(1,(len(eventList)+1)):
+        expData[(i-1),1] = i
+
+    return expData
+
+def createSolutionFile(eventList,soft_prediction,threshold,fname):
+    expData = createSolutionArray(eventList,soft_prediction)
+
+    outputfile=open(fname,"w")
+    outputfile.write("EventId,RankOrder,Class\n")
+
+    for i in range(0,len(eventList)):
+        event = int(expData[i,0])
+        rank = int(expData[i,1])
+        label = "b"
+
+        if expData[i,2] >= threshold:
+            label="s"
+
+        outputfile.write(str(event)+",")
+        outputfile.write(str(rank)+",")
+        outputfile.write(label)            
+        outputfile.write("\n")
+
+    outputfile.close()
+
 """
 misc tools
 """

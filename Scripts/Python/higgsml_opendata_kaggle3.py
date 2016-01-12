@@ -141,7 +141,7 @@ def calculateFor(submissionFile):
                 else:
                     print("something wrong",label)
                     exit()
-
+    f.close()
     print("Public leaderboard: AMS = ",AMS(signalPublic, backgroundPublic),'signal = {0}, background = {1}'.format(signalPublic, backgroundPublic))
     print("Private leaderboard: AMS = ",AMS(signalPrivate, backgroundPrivate),'signal = {0}, background = {1}'.format(signalPrivate, backgroundPrivate))
 
@@ -159,14 +159,5 @@ def calculateFor(submissionFile):
 
 
 if __name__ == "__main__":
-
-    
-    
-    # submissionFile = "submission.csv"
-    # submissionFile = "submission_tmva.csv"
-    # submissionFile = "submission_simplest.csv" 
-    # submissionFile = "solution_LR_thresh1.csv"
-    # submissionFile = "solution_LR_thresh0.5000000000000001.csv"
-    calculateFor(solPath + "solution_LogR.csv")
-    calculateFor(solPath + "solution_LR_thresh1.csv")
-    calculateFor(solPath + "submission_simplest.csv")
+    calculateFor(solPath + "solution_kNN.csv")
+    calculateFor(solPath + "solution_kNN_test.csv")
