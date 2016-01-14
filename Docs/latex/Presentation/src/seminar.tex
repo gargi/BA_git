@@ -1,0 +1,39 @@
+\documentclass[10pt]{beamer}
+%\usepackage{german}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{sidecap}
+\usetheme{default}
+\usepackage{hyperref}
+
+
+
+\begin{document}
+\title{Road to: \\ "Classiﬁcation of data from the ATLAS experiments"}
+\author{Michael Janschek}
+\date{\today}
+
+	%Titelfolie
+	\begin{frame}
+		\maketitle
+	\end{frame}
+	
+	%Übersicht
+	\begin{frame}
+		\frametitle{Overview}
+		\tableofcontents
+	\end{frame}
+	
+	\input{kaggle}
+	\input{challenge}
+	\input{methods}
+	\input{2do}
+	
+	\begin{frame}[allowframebreaks]
+		\frametitle{References}
+		\bibliographystyle{plain}
+		\setbeamertemplate{bibliography item}[text]
+		\bibliography{references}		
+	\end{frame}
+	
+\end{document}

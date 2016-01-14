@@ -1,0 +1,13 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {english}
+\beamer@sectionintoc {1}{Kaggle}{3}{0}{1}
+\beamer@sectionintoc {2}{The Challenge}{4}{0}{2}
+\beamer@subsectionintoc {2}{1}{Goals}{4}{0}{2}
+\beamer@subsectionintoc {2}{2}{Data}{8}{0}{2}
+\beamer@subsectionintoc {2}{3}{Evaluation}{10}{0}{2}
+\beamer@subsectionintoc {2}{4}{Task}{11}{0}{2}
+\beamer@sectionintoc {3}{Methods of Classification}{12}{0}{3}
+\beamer@subsectionintoc {3}{1}{Feature selection}{12}{0}{3}
+\beamer@subsectionintoc {3}{2}{Logistic regression}{17}{0}{3}
+\beamer@subsectionintoc {3}{3}{k-Nearest-Neighbours}{20}{0}{3}
+\beamer@sectionintoc {4}{2do}{24}{0}{4}

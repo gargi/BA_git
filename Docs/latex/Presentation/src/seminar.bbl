@@ -1,0 +1,32 @@
+\begin{thebibliography}{1}
+
+\bibitem{higgsChallenge}
+Higgs boson machine learning challenge.
+\newblock \url{https://www.kaggle.com/c/higgs-boson}.
+\newblock Accessed: 2016-01-03.
+
+\bibitem{kagglePage}
+Kaggle homepage.
+\newblock \url{https://www.kaggle.com/}.
+\newblock Accessed: 2016-01-14.
+
+\bibitem{ATLASpage}
+Official page of the atlas-experiment.
+\newblock \url{http://www.atlas.ch/calorimeter.html}.
+\newblock Accessed: 2016-01-14.
+
+\bibitem{higgsPaper}
+Claire Adam-Bourdarios, Glen Cowan, C´ecile Germain, Isabelle Guyon, Bal´azs
+  K´egl, and David Rousseau.
+\newblock Learning to discover: the higgs boson machine learning challenge.
+\newblock \url{http://www.opendata.cern.ch/record/329}, January 2015.
+\newblock Version 2.3.
+
+\bibitem{germainForum}
+C´ecile Germain.
+\newblock Missing features: to impute or not?
+\newblock
+  \url{https://www.kaggle.com/c/higgs-boson/forums/t/9552/missing-features-to-impute-or-not}.
+\newblock Accessed: 2016-01-14.
+
+\end{thebibliography}
