@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%notebook-packages%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 	\usepackage{graphicx} % Used to insert images
-    %\usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
     %\usepackage{color} % Allow colors to be defined
     \usepackage[svgnames]{xcolor}
     \usepackage{listings}

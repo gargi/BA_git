@@ -4,10 +4,7 @@
 \subsection{The Data}
 \input{data}
 \subsection{The Evaluation}
-
-
-
-%\input{noteAms}
+\input{noteAms}
 \pagebreak
 
 \ifthenelse{ \( \equal{\zweiseitig}{twoside} \and \not \isodd{\value{page}} \)}

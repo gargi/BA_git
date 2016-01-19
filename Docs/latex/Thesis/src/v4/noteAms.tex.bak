@@ -1,0 +1,586 @@
+    %Date: 04.01.2016
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\PY{k+kn}{import} \PY{n+nn}{math}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    Approximate Median Significance (AMS) defined as:\\
+\[AMS = \sqrt{2 { (s + b + b_r) log[1 + (s/(b+b_{reg}))] - s}}\]
+
+where:\\
+- \(b_{reg} = 10\) is a regulization term (set by the contest), -
+\(b = \sum_{i=1}^{n} w_i, y_i=0\) is sum of weighted background
+(incorrectly classified as signal), - \(s = \sum_{i=1}^{n} w_i, y_i=1\)
+is sum of weighted signals (correctly classified as signal), - \(log\)
+is natural logarithm
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{calcAMS}\PY{p}{(}\PY{n}{s}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}    
+    \PY{n}{br} \PY{o}{=} \PY{l+m+mf}{10.0}
+    \PY{n}{radicand} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*}\PY{p}{(} \PY{p}{(}\PY{n}{s}\PY{o}{+}\PY{n}{b}\PY{o}{+}\PY{n}{br}\PY{p}{)} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{log} \PY{p}{(}\PY{l+m+mf}{1.0} \PY{o}{+} \PY{n}{s}\PY{o}{/}\PY{p}{(}\PY{n}{b}\PY{o}{+}\PY{n}{br}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{n}{s}\PY{p}{)}
+    \PY{k}{if} \PY{n}{radicand} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{radicand is negative. Exiting}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{exit}\PY{p}{(}\PY{p}{)}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{ams} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{radicand}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{AMS:}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{ams}\PY{p}{)}
+        \PY{k}{return} \PY{n}{ams}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    Following this definition, we can derive a maximum AMS by simply summing
+the weights of all positive labels.
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{calcWeightSums}\PY{p}{(}\PY{n}{weights}\PY{p}{,}\PY{n}{preds}\PY{p}{,}\PY{n}{labels}\PY{p}{)}\PY{p}{:}
+    \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{0}
+    \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{0}
+    \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{preds}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+        \PY{n}{pred} \PY{o}{=} \PY{n}{preds}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+        \PY{n}{label} \PY{o}{=} \PY{n}{labels}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+        \PY{n}{weight} \PY{o}{=} \PY{n}{weights}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+        \PY{k}{if} \PY{n}{pred} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.}\PY{p}{:}
+            \PY{k}{if} \PY{n}{label} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.}\PY{p}{:}
+                \PY{n}{s} \PY{o}{+}\PY{o}{=} \PY{n}{weight}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{b} \PY{o}{+}\PY{o}{=} \PY{n}{weight}
+    \PY{k}{return} \PY{n}{s}\PY{p}{,}\PY{n}{b}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    Data shall have the form of \([w,y,x_1,x_2]\) where
+
+\begin{itemize}
+\tightlist
+\item
+  \(w\) is a weight in the intervall \([0,1)\)
+\item
+  \(y\) is the label ``0'' for ``background'' or ``1'' for ``signal''
+\item
+  \(x_n\) are randomly generated features with respect to the label
+\end{itemize}
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{calcMaxAMS}\PY{p}{(}\PY{n}{weights}\PY{p}{,}\PY{n}{labels}\PY{p}{)}\PY{p}{:}
+    \PY{n}{s}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{n}{calcWeightSums}\PY{p}{(}\PY{n}{weights}\PY{p}{,}\PY{n}{labels}\PY{p}{,}\PY{n}{labels}\PY{p}{)}
+    \PY{n}{ams} \PY{o}{=} \PY{n}{calcAMS}\PY{p}{(}\PY{n}{s}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Found}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{labels}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{signals.}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Weightsums signal:}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{| background:}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Maximum AMS possible with this Data:}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{ams}\PY{p}{)}
+    \PY{k}{return} \PY{n}{ams}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    We generate AMS with good seperable toy-data, starting with the maximum
+AMS. The data of the actual challenge is weighted to punish
+wrong-identified signals significantly harder than wrong background. Our
+toy-data will do so by using its signal-probability as weight, the
+features are randomized by normal distributions.
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{generateFeature}\PY{p}{(}\PY{n}{label}\PY{p}{,} \PY{n}{mu\PYZus{}s}\PY{p}{,} \PY{n}{mu\PYZus{}b}\PY{p}{,} \PY{n}{sigma\PYZus{}s}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{sigma\PYZus{}b}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{n}{label} \PY{o+ow}{is} \PY{l+m+mi}{1}\PY{p}{:}
+        \PY{n}{mu} \PY{o}{=} \PY{n}{mu\PYZus{}s}
+        \PY{n}{sigma} \PY{o}{=} \PY{n}{sigma\PYZus{}s}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{mu} \PY{o}{=} \PY{n}{mu\PYZus{}b}
+        \PY{n}{sigma} \PY{o}{=} \PY{n}{sigma\PYZus{}b}
+    \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{mu}\PY{p}{,}\PY{n}{sigma}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{createToyData}\PY{p}{(}\PY{n}{n} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{,}\PY{n}{dim} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{,}\PY{n}{s\PYZus{}prob} \PY{o}{=} \PY{l+m+mf}{0.05}\PY{p}{)}\PY{p}{:}
+    \PY{n}{data}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{shape} \PY{o}{=} \PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{dim}\PY{p}{)}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{float}\PY{p}{)}
+    \PY{k}{if} \PY{n}{dim} \PY{o}{\PYZlt{}} \PY{l+m+mi}{3}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Operation canceled.}\PY{l+s}{\PYZdq{}}\PY{p}{,}
+              \PY{l+s}{\PYZdq{}}\PY{l+s}{Data should have at least one}\PY{l+s}{\PYZdq{}}\PY{p}{,}
+              \PY{l+s}{\PYZdq{}}\PY{l+s}{additional dimension besides weights and labels.}\PY{l+s}{\PYZdq{}}\PY{p}{,}
+              \PY{l+s}{\PYZdq{}}\PY{l+s}{(dim \PYZgt{}=3)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{return} \PY{k}{None}
+    \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n}{n}\PY{p}{)} \PY{c}{\PYZsh{}weights}
+    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+        \PY{k}{if} \PY{n}{data}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{s\PYZus{}prob}\PY{p}{:} \PY{c}{\PYZsh{} label\PYZhy{}determination}
+            \PY{n}{label} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n}{label} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{data}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{label}
+        \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{dim}\PY{p}{)}\PY{p}{:}
+            \PY{c}{\PYZsh{}mu\PYZus{}s=j*5}
+            \PY{c}{\PYZsh{}mu\PYZus{}b=j*20}
+            \PY{n}{data}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{o}{=}\PY{n}{generateFeature}\PY{p}{(}\PY{n}{label}\PY{p}{,}\PY{n}{mu\PYZus{}s}\PY{o}{=}\PY{p}{(}\PY{n}{j}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{mu\PYZus{}b}\PY{o}{=}\PY{p}{(}\PY{n}{j}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{20}\PY{p}{)}
+    \PY{k}{return} \PY{n}{data}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{n} \PY{o}{=} \PY{l+m+mi}{100000}
+\PY{n}{prob} \PY{o}{=} \PY{l+m+mf}{0.05}
+\PY{n}{data} \PY{o}{=} \PY{n}{createToyData}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{dim}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{s\PYZus{}prob}\PY{o}{=}\PY{n}{prob}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{weights} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+\PY{n}{labels} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{calcMaxAMS}\PY{p}{(}\PY{n}{weights}\PY{p}{,}\PY{n}{labels}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+AMS: 21.19484139384361
+Found 5020 signals.
+Weightsums signal: 124.326027277 | background: 0
+Maximum AMS possible with this Data: 21.19484139384361
+    \end{Verbatim}
+}%
+    \end{addmargin}%
+    We randomly guess labels for a solution for a second AMS with knowledge
+about the toydatas signal-probability.
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sol\PYZus{}weights} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+\PY{n}{sol} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{n}{sol\PYZus{}weights}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{prob}\PY{p}{:} \PY{c}{\PYZsh{} label\PYZhy{}determination}
+        \PY{n}{sol}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{sol}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{s}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{n}{calcWeightSums}\PY{p}{(}\PY{n}{weights}\PY{p}{,}\PY{n}{sol}\PY{p}{,}\PY{n}{labels}\PY{p}{)}
+\PY{n}{br} \PY{o}{=} \PY{l+m+mi}{10}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{s}\PY{o}{*}\PY{o}{=}\PY{l+m+mi}{10}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{b}\PY{o}{*}\PY{o}{=}\PY{l+m+mi}{10}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{s}\PY{o}{+}\PY{n}{b}\PY{o}{+}\PY{n}{br}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    
+    
+    \begin{verbatim}
+25055.584526883151
+    \end{verbatim}
+
+    
+}%
+    \end{addmargin}%
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{l+m+mf}{1.0} \PY{o}{+} \PY{n}{s}\PY{o}{/}\PY{p}{(}\PY{n}{b}\PY{o}{+}\PY{n}{br}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    
+    
+    \begin{verbatim}
+1.002459486418638
+    \end{verbatim}
+
+    
+}%
+    \end{addmargin}%
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mf}{1.0} \PY{o}{+} \PY{n}{s}\PY{o}{/}\PY{p}{(}\PY{n}{b}\PY{o}{+}\PY{n}{br}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    
+    
+    \begin{verbatim}
+0.002456466831991091
+    \end{verbatim}
+
+    
+}%
+    \end{addmargin}%
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(} \PY{l+m+mi}{2} \PY{o}{*}\PY{p}{(} \PY{p}{(}\PY{n}{s}\PY{o}{+}\PY{n}{b}\PY{o}{+}\PY{n}{br}\PY{p}{)} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{log} \PY{p}{(}\PY{l+m+mf}{1.0} \PY{o}{+} \PY{n}{s}\PY{o}{/}\PY{p}{(}\PY{n}{b}\PY{o}{+}\PY{n}{br}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{n}{s}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    
+    
+    \begin{verbatim}
+0.38867392440571713
+    \end{verbatim}
+
+    
+}%
+    \end{addmargin}%
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{calcAMS}\PY{p}{(}\PY{n}{s}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
+
+\par\vspace{1\smallerfontscale}%
+    \needspace{4\baselineskip}%
+    % Only render the prompt if the cell is pyout.  Note, the outputs prompt 
+    % block isn't used since we need to check each indiviual output and only
+    % add prompts to the pyout ones.
+    %
+    %
+    \begin{addmargin}[\cellleftmargin]{0em}% left, right
+    {\smaller%
+    \vspace{-1\smallerfontscale}%
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+AMS: 0.38867392440571713
+    \end{Verbatim}
+}%
+    \end{addmargin}%
+    % Add contents below.
+
+{\par%
+\vspace{-1\baselineskip}%
+\needspace{4\baselineskip}}%
+\begin{notebookcell}[]%
+\begin{addmargin}[\cellleftmargin]{0em}% left, right
+{\smaller%
+\par%
+%
+\vspace{-1\smallerfontscale}%
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\end{Verbatim}
+%
+\par%
+\vspace{-1\smallerfontscale}}%
+\end{addmargin}
+\end{notebookcell}
