@@ -30,34 +30,30 @@ This addition to Eq. \eqref{eq:AMS_1} makes the final evaluation-formula complet
 
 For simplicity, we will call it just AMS, as Eq. \eqref{eq:AMS_1} will not have further appearances in this thesis.
 
-\subsubsection{The Leaderboards}
-%testdata split in private and public set => KaggleSet
-%weights are normalized => KaggleWeight
+\begin{figure}
+	\caption{Flowchart describing the AMS calculation}
+\end{figure}
+
+\subsubsection{The leaderboard}
+In Kaggle-Challenges, competitors are ranked in a leaderboard, rank 1 is the participant who submitted a solution which achieved the best score on the evaluation used in this challenge, in our case the AMS \eqref{eq:AMS_2}. To prevent participants from simply training algorithms on optimizing the leaderboard-score, Kaggle uses a so-called \textit{public} and \textit{private leaderboard}, which use different data from the test set to generate the AMS. The weights were normalized with respect to the number of events used for computing the public and private score, in our dataset \cite{higgsData} this information is given by the features \textit{KaggleSet} and \textit{KaggleWeight} so it is possible to compute these scores.
+
+%%grafik um Aufteilung der bereits bewerteten daten zu zeigen.
+
+During the challenge, the public leaderboard is visible to any visitor of Kaggle, so participants are able to get an evaluation of their submitted solution and work on better classification for a higher rank.
+After reaching the \textit{final submission deadline}, the private leaderboard is accessible, which shows the final ranking of the challenge and the differences to the public leaderboard. Only the private rank is relevant for winning the challenge.
+
 %compare public and private LB (graphic analysis on forums)
+\begin{figure}
+	\caption{Compared rankings of the public and private leaderboard}
+\end{figure}
 
 \subsubsection{Alternative objective functions}
-For classification, a data scientist wants to train a classifier on an \textit{objective function}. Properties of the AMS (like using the logarithm) make it difficult to use it as objective function, some alternatives were proposed by the challenge-creators \cite{higgsPaper} and some challenge-participants via the Kaggle-Forum \cite{higgsForum}
+For classification, a data scientist wants to train a classifier on an \textit{objective function}. Properties of the AMS (like using the logarithm) make it difficult to use it as objective function, some alternatives were proposed by the challenge-creators \cite{higgsPaper} and some challenge-participants via the Kaggle-Forum %\cite{higgsForum}
 
 \begin{itemize}
 	\item alternative objective function: $ \frac{s}{\sqrt{b}} $
 	\begin{itemize}
 		\item only valid when $s \ll b \ and \ b \gg 1$
 	\end{itemize}
+	\item  weighted AUC \cite{diaz14}
 \end{itemize}
-
-
-
-\begin{equation}\label{eq:Z}
-	Z = \sqrt{q_0} = \sqrt{2 \left(n \ln{\left( \frac{n}{\mu_b} \right)} -
-	n + \mu_b \right)}
-\end{equation}
-
-\begin{equation}\label{eq:AMS_3}
-	\frac{s}{\sqrt{b}}
-\end{equation}
-
-
-
-\eqref{eq:AMS_2}
-\eqref{eq:AMS_3}
-\eqref{eq:Z}

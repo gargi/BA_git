@@ -4,27 +4,27 @@
 \contentsline {subsubsection}{\numberline {1.2.1}Motivation}{1}{subsubsection.1.2.1}
 \contentsline {subsubsection}{\numberline {1.2.2}Goal}{1}{subsubsection.1.2.2}
 \contentsline {subsection}{\numberline {1.3}Overview}{1}{subsection.1.3}
-\contentsline {section}{\numberline {2}Understanding the Challenge}{3}{section.2}
-\contentsline {subsection}{\numberline {2.1}The Data}{3}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}notes}{3}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}main}{3}{subsection.2.3}
-\contentsline {subsubsection}{\numberline {2.3.1}Data analysis}{3}{subsubsection.2.3.1}
-\contentsline {subsection}{\numberline {2.4}The formal problem}{3}{subsection.2.4}
-\contentsline {subsection}{\numberline {2.5}The evaluation}{4}{subsection.2.5}
-\contentsline {subsubsection}{\numberline {2.5.1}The Leaderboards}{5}{subsubsection.2.5.1}
-\contentsline {subsubsection}{\numberline {2.5.2}Alternative objective functions}{5}{subsubsection.2.5.2}
+\contentsline {section}{\numberline {2}Understanding the challenge}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}The data}{3}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Data visualization}{4}{subsubsection.2.1.1}
+\contentsline {subsection}{\numberline {2.2}The formal problem}{4}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}The evaluation}{5}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}The leaderboard}{5}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}Alternative objective functions}{6}{subsubsection.2.3.2}
 \contentsline {section}{\numberline {3}Methods of classification}{7}{section.3}
-\contentsline {subsection}{\numberline {3.1}Logistic regression}{7}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}k-nn classification}{7}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}The winning methods}{7}{subsection.3.3}
-\contentsline {subsubsection}{\numberline {3.3.1}Neural networks}{7}{subsubsection.3.3.1}
-\contentsline {subsubsection}{\numberline {3.3.2}Regularized greedy forest}{7}{subsubsection.3.3.2}
-\contentsline {subsubsection}{\numberline {3.3.3}XGBoost}{7}{subsubsection.3.3.3}
+\contentsline {subsection}{\numberline {3.1}basic data science methodology}{7}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Logistic regression}{7}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}k-nn classification}{7}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}The winning methods}{7}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}Neural networks}{8}{subsubsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.4.2}Regularized greedy forest}{8}{subsubsection.3.4.2}
+\contentsline {subsubsection}{\numberline {3.4.3}XGBoost}{8}{subsubsection.3.4.3}
 \contentsline {section}{\numberline {4}Results on the Kaggle data}{9}{section.4}
 \contentsline {subsection}{\numberline {4.1}k-nn classification }{9}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Comparision of all methods}{9}{subsection.4.2}
 \contentsline {section}{\numberline {5}Discussion}{11}{section.5}
 \contentsline {subsection}{\numberline {5.1}Impact of the Challenge}{12}{subsection.5.1}
-\contentsline {section}{References}{13}{section*.4}
-\contentsline {section}{List of Figures}{14}{section*.5}
-\contentsline {section}{List of Tables}{14}{section*.6}
+\contentsline {section}{References}{13}{section*.9}
+\contentsline {section}{List of Figures}{14}{section*.10}
+\contentsline {section}{List of Tables}{14}{section*.11}
+\contentsline {section}{\numberline {A}The detailed description of the features}{14}{appendix.A}

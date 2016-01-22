@@ -43,14 +43,21 @@
 \newblock {\url{http://jmlr.csail.mit.edu/proceedings/papers/v42/diaz14.pdf}} ,
   Accessed: 2016-01-18
 
-\bibitem[hig14a]{higgsChallenge}
+\bibitem[Hig15a]{higgsData}
+\emph{Dataset from the ATLAS Higgs Boson Machine Learning Challenge 2014}.
+\newblock \url{http://www.http://opendata.cern.ch/record/328}, 2015. --
+\newblock Accessed: 2015-12-10
+
+\bibitem[Hig15b]{higgsChallenge}
 \emph{Higgs Boson Machine Learning Challenge}.
-\newblock \url{https://www.kaggle.com/c/higgs-boson}, 2014. --
+\newblock \url{https://www.kaggle.com/c/higgs-boson}, 2015. --
 \newblock Accessed: 2016-01-03
 
-\bibitem[hig14b]{higgsData}
-\emph{Dataset from the ATLAS Higgs Boson Machine Learning Challenge 2014}.
-\newblock \url{http://www.http://opendata.cern.ch/record/328}, 2014. --
+\bibitem[PPSS14]{californiaPaper}
+\textsc{Perez}, Jocelyn ; \textsc{Ponmalai}, Ravi ; \textsc{Silver}, Alex  ;
+  \textsc{Strack}, Dacoda:
+\newblock \emph{ML2014: Higgs Boson Machine Learning Challenge}.
+\newblock \url{http://www.http://opendata.cern.ch/record/331}, 2014. --
 \newblock Accessed: 2015-12-10
 
 \end{thebibliography}
