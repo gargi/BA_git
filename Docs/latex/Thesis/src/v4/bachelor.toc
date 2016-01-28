@@ -9,22 +9,21 @@
 \contentsline {subsubsection}{\numberline {2.1.1}Data visualization}{4}{subsubsection.2.1.1}
 \contentsline {subsection}{\numberline {2.2}The formal problem}{4}{subsection.2.2}
 \contentsline {subsection}{\numberline {2.3}The evaluation}{5}{subsection.2.3}
-\contentsline {subsubsection}{\numberline {2.3.1}The leaderboard}{5}{subsubsection.2.3.1}
-\contentsline {subsubsection}{\numberline {2.3.2}Alternative objective functions}{6}{subsubsection.2.3.2}
-\contentsline {section}{\numberline {3}Methods of classification}{7}{section.3}
-\contentsline {subsection}{\numberline {3.1}basic data science methodology}{7}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Logistic regression}{7}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}k-nn classification}{7}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}The winning methods}{7}{subsection.3.4}
-\contentsline {subsubsection}{\numberline {3.4.1}Neural networks}{8}{subsubsection.3.4.1}
-\contentsline {subsubsection}{\numberline {3.4.2}Regularized greedy forest}{8}{subsubsection.3.4.2}
-\contentsline {subsubsection}{\numberline {3.4.3}XGBoost}{8}{subsubsection.3.4.3}
-\contentsline {section}{\numberline {4}Results on the Kaggle data}{9}{section.4}
-\contentsline {subsection}{\numberline {4.1}k-nn classification }{9}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Comparision of all methods}{9}{subsection.4.2}
-\contentsline {section}{\numberline {5}Discussion}{11}{section.5}
-\contentsline {subsection}{\numberline {5.1}Impact of the Challenge}{12}{subsection.5.1}
-\contentsline {section}{References}{13}{section*.9}
-\contentsline {section}{List of Figures}{14}{section*.10}
-\contentsline {section}{List of Tables}{14}{section*.11}
-\contentsline {section}{\numberline {A}The detailed description of the features}{14}{appendix.A}
+\contentsline {subsubsection}{\numberline {2.3.1}The leaderboard}{6}{subsubsection.2.3.1}
+\contentsline {section}{\numberline {3}Methods of classification}{9}{section.3}
+\contentsline {subsection}{\numberline {3.1}basic data science methodology}{9}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Logistic regression}{9}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}k-nn classification}{9}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}The winning methods}{9}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}Neural networks}{10}{subsubsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.4.2}Regularized greedy forest}{10}{subsubsection.3.4.2}
+\contentsline {subsubsection}{\numberline {3.4.3}XGBoost}{10}{subsubsection.3.4.3}
+\contentsline {section}{\numberline {4}Results on the Kaggle data}{11}{section.4}
+\contentsline {subsection}{\numberline {4.1}k-nn classification }{11}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Comparision of all methods}{11}{subsection.4.2}
+\contentsline {section}{\numberline {5}Discussion}{13}{section.5}
+\contentsline {subsection}{\numberline {5.1}Impact of the Challenge}{14}{subsection.5.1}
+\contentsline {section}{References}{15}{section*.8}
+\contentsline {section}{List of Figures}{16}{section*.9}
+\contentsline {section}{List of Tables}{16}{section*.10}
+\contentsline {section}{\numberline {A}The detailed description of the features}{16}{appendix.A}
