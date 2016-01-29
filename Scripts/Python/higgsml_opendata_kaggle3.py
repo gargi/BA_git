@@ -16,7 +16,7 @@ scriptFolderPath = os.path.dirname(os.getcwd())
 # scriptFolderPath = os.path.dirname(startingKitFolderPath)
 mainFolderPath = os.path.dirname(scriptFolderPath)
 dataPath = (mainFolderPath + "/Data")
-solPath = (dataPath + "/Solutions/")
+submissionPath = (dataPath + "/Submissions/")
 
 def create_solution_dictionary(solution):
     """ Read solution file, return a dictionary with key EventId and value the row, as well as the header
@@ -159,9 +159,10 @@ def calculateFor(submissionFile):
 
 
 if __name__ == "__main__":
-    #calculateFor(solPath + "solution_kNN.csv")
-    #calculateFor(solPath + "solution_kNN_test.csv")
-    calculateFor(solPath + "solution_kNN_all.csv")
-    #calculateFor(solPath + "solution_LogR.csv")a
-    #calculateFor(solPath + "solution_logReg_test_normed.csv")
-    #calculateFor(solPath + "solution_logReg_test_4.csv")
+    #calculateFor(submissionPath + "solution_kNN.csv")
+    #calculateFor(submissionPath + "solution_kNN_test.csv")
+    #calculateFor(submissionPath + "solution_kNN_all.csv")
+    calculateFor(submissionPath + "test.csv")
+    #calculateFor(submissionPath + "solution_LogR.csv")a
+    #calculateFor(submissionPath + "solution_logReg_test_normed.csv")
+    #calculateFor(submissionPath + "solution_logReg_test_4.csv")
