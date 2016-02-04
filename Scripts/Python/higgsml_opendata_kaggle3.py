@@ -159,9 +159,10 @@ def calculateFor(submissionFile):
 
 
 if __name__ == "__main__":
-    #calculateFor(submissionPath + "solution_kNN.csv")
-    #calculateFor(submissionPath + "solution_kNN_test.csv")
-    #calculateFor(submissionPath + "solution_kNN_all.csv")
+    calculateFor(submissionPath + "solution_kNN_thresh0.8.csv")
+    calculateFor(submissionPath + "solution_kNN.csv")
+    calculateFor(submissionPath + "solution_kNN_test.csv")
+    calculateFor(submissionPath + "solution_kNN_all.csv")
     calculateFor(submissionPath + "test.csv")
     #calculateFor(submissionPath + "solution_LogR.csv")a
     #calculateFor(submissionPath + "solution_logReg_test_normed.csv")

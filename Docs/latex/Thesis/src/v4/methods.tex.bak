@@ -10,14 +10,76 @@
 \end{itemize}
 
 
-\subsection{basic data science methodology}
-\begin{itemize}
-	\item feature-selection/-engineering	
-	\item crossvalidation
-	\item objective function
-\end{itemize}
 
-why these methods? resources... 42...
+\subsection{Basic data science methodology}
+
+\subsubsection{Feature selection and -engineering}
+An intuitive approach to optimize classifiers is to vary the used features of the data sets. The selection can be performed manually by considering e.g. histograms[Fig.\ref{fig:hist1}] and scatter plots[Fig.\ref{fig:scat1}]
+
+\subsubsection{Cross-validation}
+Overfitting a model is a known problem in machine learning. In Fig. \ref{fig:leaderboards} we observed single submissions to the challenge, that had big differences in ranks on the public and private leaderboard. This could be explained by overfitted classifiers, especially in one case a submission fell 720 ranks from its public to private rank.
+
+A common technique to prevent overfitting is to use only one part of the training set for fitting the classifier while using the other one for testing, calculating a evaluation score, like \textit{mean squared error}(MSE). This method is called \textit{cross-validation}. This procedure is repeated several times and returns a mean score which gives information about the reliability of the classifier and its used parameters.
+
+\subsection{Choosing the classifiers}
+\subsubsection{Setup}
+In order to choose an effective approach to a solution for the challenges task, we need to consider the system which will run the classifiers.
+
+\begin{SCtable}[1][h]
+  	\begin{tabular}{r l|}
+		Operating System: & Windows 8.1 64bit\\
+		CPU: & Intel i7 K875 @ 2.93GHz (4 Cores)\\
+		Memory: & 16GB DDR3\\
+		GPU: & NVIDIA GeForce GTX470 @ 1.22GHz\\
+		VRAM: & 1280 MB GDDR5\\
+	\end{tabular}
+	\label{tab:specs}
+	\caption{\\Specifications of used System}
+\end{SCtable}
+
+While this system enables us to use various methods that utilize minor  parallelization, it still limits the performance of classifiers dependent on high parallelization, like neural networks.
+
+\subsubsection{scikit-learn}
+For all own approaches to the challenge we will use \textit{scikit-learn}, an open source machine learning library for Python. Originated from a "Google Summer of Code"-project started 2007, it grew into a popular toolkit.
+Using scikit-learn has advantages as disadvantages, we consider the most important ones.
+
+\begin{center}
+\begin{table}[ht!]
+  	\begin{tabular}{ | p{0.15\textwidth} | p{0.7\textwidth} |}
+  		\hline
+		Advantages: \\
+		\hline
+		Usability &
+		scikit-learn is easily installed via Python-package manager systems like \textit{pip} or \textit{Anaconda}, its required dependencies are NumPy, SciPy, and a working C\/C++ compiler\cite{sklearngit}.\\
+		\hline
+		Scale and documentation &
+		A reason for its popularity is the amount of "well-established algorithms"\cite{sklearn} this toolkit contains. It also offers good code-documentation and mathematical explanation of all models included.\\
+		\hline
+		Multi-core CPU support &
+		With every version \cite{sklearnhistory} scikit-learn improves its multi-core support for algorithms that profit of parallelization. This will speed up our classification considerably.\\
+		\hline
+		\hline		
+		Disdvantages: \\
+		\hline
+		No GPU support: &
+		While the library utilizes multi-core CPUs, GPU-parallelization is not supported by\\
+		\hline
+		(Almost) no custom evaluation functions &
+		scikit-learn offers rarely an easy way to use custom evaluation functions for e.g. fitting a classifier. Some algorithms, like \textit{sklearn.cross\_validation}, offer choice of pre-built functions via a \textit{scoring}-parameter.\\
+		\hline
+		Speed &
+		One focus of the development of the toolkit is optimizing and speed-up of the algorithms, but projects devoted to single learning techniques are probably faster.\\
+		\hline
+	\end{tabular}
+	\label{tab:sklearn}
+	\caption{\\Comparison of properties of scikit-learn}
+\end{table}
+\end{center}
+
+
+
+\subsubsection{Shape of data}
+The choice of classifiers is dependent on the data. The training set contains 250000 samples with 32 features (EventId not counted), the test set 550000 samples with 30 features. Considering this, some classification methods would be ineffective, e.g. \textit{Support Vector Classification} due to its complexity $>O(n^2)$\cite{sklearn}.
 
 \subsection{Logistic regression}
 \input{logReg}
@@ -40,8 +102,10 @@ minimum: titan gpu
 \url{https://github.com/TimSalimans/HiggsML}
 2nd place
 Requires 64gb+ RAM
+
 \subsubsection{XGBoost}
-\cite{chen14}
+\input{xgboost}
+
 \pagebreak
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

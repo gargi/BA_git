@@ -60,4 +60,19 @@
 \newblock \url{http://www.http://opendata.cern.ch/record/331}, 2014. --
 \newblock Accessed: 2015-12-10
 
+\bibitem[sci16a]{sklearn}
+\emph{scikit-learn Homepage}.
+\newblock \url{http://scikit-learn.org/stable/index.html}, 2016. --
+\newblock Accessed: 2016-02-03
+
+\bibitem[sci16b]{sklearngit}
+\emph{scikit-learn on Github}.
+\newblock \url{https://github.com/scikit-learn/scikit-learn}, 2016. --
+\newblock Accessed: 2016-02-03
+
+\bibitem[sci16c]{sklearnhistory}
+\emph{scikit-learn Version-History}.
+\newblock \url{http://scikit-learn.org/stable/whats_new.html}, 2016. --
+\newblock Accessed: 2016-02-03
+
 \end{thebibliography}
