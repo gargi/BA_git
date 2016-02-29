@@ -99,13 +99,13 @@ def customThreshold(pred,t = 0.5):
             newPred[i]=1
     return newPred
 
-def bestThreshold(soft_pred,sol_data):
+def bestThreshold(soft_pred,sol_data,steps=10):
     bestPred = soft_pred
     thresh = 0
     maxAMS = 0
     maxThresh = 0
     newSignals = 0
-    for thresh in np.linspace(1.0,0.0,10):
+    for thresh in np.linspace(1.0,0.0,steps):
         newPred = customThreshold(soft_pred,thresh)
         b_ams = calcSetAMS(newPred,sol_data)[0][0]
         #print("ams:",ams)
@@ -246,9 +246,9 @@ def createSubmissionFile(eventList,soft_prediction,fname,threshold=0.5):
     outputfile.close()
 
 #result-recording
-def newRunRecord(fname = "records_1.csv"):
+def newRunRecord(fname = "records_1.csv",headerStr="Classifier,Featurelist,CV_Score,PublicAMS,PrivateAMS,time_train,time_pred,Settings"):
     file=open(fname,"w")
-    file.write("Classifier,Featurelist,CV_Score,PublicAMS,PrivateAMS,time_train,time_pred,Settings\n")
+    file.write(str(headerStr+"\n"))
     file.close()
 
 #classifier,settings,featureList,cv_score,public_ams,private_ams
@@ -266,8 +266,12 @@ def recordRun(res,fname = "records_1.csv"):
               "Classifier,Featurelist,CV_Score,PublicAMS,PrivateAMS,time_train,time_pred,Settings")
         print("Canceling recording.")
         return
+    i = 1
     for data in res:
-        file.write(str(data + ","))
+        file.write(str(data))
+        if i != 20:
+            file.write(",")
+        i += 1
     file.write("\n")
     file.close()
 
