@@ -1,0 +1,34 @@
+\section{Conclusion}\label{ch:conc}
+As this is the last chapter, I will briefly summarize the key statements of the whole work.
+After reviewing the main take-away for Kaggle and data science in physics, I close with my own, personal thoughts regarding this Thesis.
+
+\subsection{Summary}
+After a bief introduction to the ATLAS experiment and the discovery of the Higgs Boson, we learn about data analysis in CERN and the process of \emph{event selection}. This topic was connected to Kaggle and \emph{The Higgs Boson Machine Learning Challenge}, which is the works central topic.
+We formalized the challenges task: Label the data as signal or background events and rank them in order of signal probability, rank 550000 being the the event that most likely produced the Higgs Boson. A prediction for every single event contained in a test set shall be submitted to Kaggle and is evaluated via an estimation function, called the AMS. To succeed in the challenge, maximizing this AMS is the main goal.
+We prepared a first approach by presenting basic data science methods to optimize classification models in general. As we considered diverse requirements to the methods and limitations to our resources, we set up two own approaches to the challenge based on the scikit learn package for python. We started with Logistic Regression Classification, which performed poorly in the challenge. Our other approach was K Nearest Neigbhbors and was able to surpass three of five benchmarks provided by the challenges organizers. As only model in this Thesis, it profited significantly from careful feature selection.
+After the own approaches we described Neural Networks, as the winning model used this type of learning method to generate the best submission, and ended Chap. \ref{ch:methods} with XGBoost, which was acknowledged by CERN with a special award. This package was easy to use and achieved high AMS in short runtimes in comparison to other methods that ended up in top ranks on the leaderboards. It was concluded that the special \emph{HEP meets ML Award} was justified.
+The fourth chapter of this Thesis summarizes the results of our own approaches and compares these to the other methods presented before. It discusses 
+We discussed further developments after the challenge regarding Kaggle and CERN. This included goals of CERN that the challenge fulfilled and expectations it did not satisfy.
+
+\subsection{Learned lessons regarding Kaggle}
+In general, ensemble methods seem to dominate most Kaggle challenges. This trend can be expected to continue as computational resources are constantly growing, allowing bigger ensembles to be run on home computers. Neural Networks will continue growing as important learning mechanism for data science and collaborating sciences. From a technical perspective, more experimentation with parallelizing known methods is reasonable.
+In several challenges, the evaluation metric fails to create the public leaderboard as good representation of the private leaderboard. The two-leaderboard system prevents models from succeeding, when they are actually overfitted, but also it does not give a reliable prediction of the private score. Good use of cross-validation(cv) counteracts this effect. If possible, the evaluation metric should be used for calculating the cv score to achieve optimal model fitting. However, cv can not prevent overfitting if not used properly. Competitors stated overfitting as main threat in this challenge\cite{melis-1st,blog}.
+One key property of Kaggle is its active community. Though the participants of a challenge are usually competing for monetized prizes, it is still considered as scientific collaboration by many teams. However, the higher the prize money is, the less the Kaggle forum is used for discussing different approaches.
+
+\subsection{Regarding data science in physics}
+As future computer hardware will improve further, many methods notorious for their high demand in computational resources will become more viable for CERN research. Especially the \emph{triggers}, which filter LHC data for the most interesting information, rely on their efficiency in data processing. If more complex models enable a more precise data selection in the same time, follow-up data analysis will benefit of higher quality data sets with less background events.
+In other experiments, like ALICE and LHCb, more efficient models are even more critical, as these experiments use the majority of data. They do not distinguish between signals and background, but classify most events for different purposes in later analysis\cite{glig14}. With the challenge, CERN was able to learn about design of these complex methods and most importantly promote the collaboration of data science and high energy physics.\\
+To continue its current success and make important discoveries in physics CERN needs experts for each, physics \emph{and} data science.
+
+\subsection{Own thoughts}
+I was surprised by the fact, that the winning model itself actually did not have any impact on data analysis at CERN, its code was not even able to be compiled. As I discovered Balázs Kégls\footnote{Balázs Kégl is a Research Scientist at \emph{The French National Centre for Scientific Research}(CNRS) and stated in the Kaggle forums to be one of the initiators of the Challenge.} blog near the end of the deadline for this work, it really turned around my perception of this challenge with his point of perspective.
+
+Regarding the results of my own approaches. With 1785 submissions in total, among them many submitted by professional data scientist and particle physicists with years of experience, the competition in this challenge is big.  Considering the small difference of the top submissions\footnote{The AMS difference of the winning and rank 500 submission  is 0.16933, which resembles less than 4.5\% of the winning score.}, the possibility of achieving a top 100 submission with an own approach is unrealistic for an undergraduate.\\
+However, in my personal view, this Thesis can be considered as a success. As main take-away from this project, I learned to investigate data science problems further before rushing to just try any classification models. Though a benefit from reading scientific papers is obvious, the importance of \emph{comparing} papers was known to me, but never practised.
+
+The future plan is to participate in actual running Kaggle competitions and getting more experience, but this might be a topic for another day.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Leerseite bei zweiseitigem Druck
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifthenelse{ \( \equal{\zweiseitig}{twoside} \and \not \isodd{\value{page}} \)}
+	{\pagebreak \thispagestyle{empty} \cleardoublepage}{\clearpage}

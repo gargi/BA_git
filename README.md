@@ -1,4 +1,5 @@
-HiggsML2014
+Classification of Data from the ATLAS experiment
 ===========
 
-Software for the 2014 ATLAS Higgs Machine Learning Challenge data set on opendata.cern.ch/education/ATLAS
+
+This is the software package created as expansion to the Bachelor-Thesis by Michael Janschek.
