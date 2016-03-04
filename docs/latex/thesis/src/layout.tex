@@ -1,0 +1,41 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% fancy Headline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\fancyhf{}
+\pagestyle{fancy}
+\definecolor{hhublue}{rgb}{0.0745, 0.4431, 0.7843} %HHU-Blau
+\renewcommand{\headrule}
+	{{\color{hhublue}%
+		\hrule height 2pt
+			width\headwidth
+		\vspace{1pt}%
+		\hrule height 1pt
+			width\headwidth
+		\vspace{-4pt}
+	}
+	{\renewcommand{\headrulewidth}{15cm} % remove lines as well
+	}}
+\renewcommand{\sectionmark}[1]{ \markboth{#1}{} }
+
+\ifthenelse{\equal{\zweiseitig}{twoside}}
+	{\fancyhead[LE]{\thepage \hskip6mm \textit{\nouppercase{\leftmark}}}}
+	{\fancyhead[LO]{\textit{\nouppercase{\leftmark}}}}
+\fancyhead[RO]{\textit{\nouppercase{\rightmark} \hskip6mm \thepage}}
+
+%%%%%%%%%%%%%%%%%%%%%%% Massangaben fuer die Arbeit %%%%%%%%%%%%%%%
+
+\setlength{\textwidth}{15cm}
+
+\setlength{\oddsidemargin}{40mm}
+\setlength{\evensidemargin}{20mm}
+
+\addtolength{\oddsidemargin}{-1in}
+\addtolength{\evensidemargin}{-1in}
+
+%\makeindex
+\hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=blue,
+      linkcolor=darkorange,
+      citecolor=darkgreen,
+      }
