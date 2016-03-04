@@ -59,7 +59,8 @@ target/
 
 ##############################
 #personal
-Data/
-Downloads/
+downloads/
 
 atlas-higgs-challenge-2014-v2.csv
+*.csv
+higgs.model.*
