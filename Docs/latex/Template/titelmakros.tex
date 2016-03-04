@@ -1,39 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% BEGINN EINSTELLUNG FUER DIE ARBEIT. UNBEDINGT ERFORDERLICH! %%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Geben Sie Ihren Namen hier an:
-\newcommand{\bearbeiter}{Michael Janschek}
 
-% Geben Sie hier den Titel Ihrer Arbeit an:
-\newcommand{\titel}{Classification of data\\ \vspace{1ex} from the ATLAS experiment}
-
-% Geben Sie das Datum des Beginns und Ende der Bachelorarbeit ein:
-\newcommand{\beginndatum}{10. Dezember 2015}
-\newcommand{\abgabedatum}{10. M\"arz 2016}
-
-% Geben Sie die Namen des Erst- und Zweitgutachters an:
-\newcommand{\erstgutachter}{Prof. Dr. Stefan Harmeling}
-\newcommand{\zweitgutachter}{Prof. Dr. Stefan Conrad}
-
-% Falls Sie die Arbeit zweiseitig ausdrucken wollen,
-% benutzen Sie die folgende Zeile mit
-% \AN fuer zweiseitigen Druck
-% \AUS fuer einseitigen Druck
-\newcommand{\zweiseitig}{\AUS}
-
-% Falls die Arbeit in englischer Sprache verfasst 
-% werden soll, dann benutzen Sie die folgende Zeile mit
-% englisch fuer englische Sprache
-% deutsch fuer deutsche Sprache
-\newcommand{\sprache}{englisch}
-
-% Hier wird eingestellt, ob es sich bei der Arbeit um eine Bachelor- 
-% oder Masterarbeit handelt (unpassendes auskommentieren!):
-\newcommand{\arbeit}{Bachelor Thesis}
-%~ \newcommand{\arbeit}{Masterarbeit}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% ENDE EINSTELLUNGEN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Obere Titelmakros. Editieren Sie diese Datei nur, wenn
@@ -45,7 +10,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\AN}{twoside}
 \newcommand{\AUS}{}
-\newcommand{\englisch}{}
+%\newcommand{\englisch}{}
 %\newcommand{\deutsch}{\usepackage[german]{babel}}
 
 %% Die folgenden auskommentierten Optionen dienen der automatischen
@@ -63,39 +28,50 @@
 %\pdfcompresslevel=9 % compression level for text and image;
 %\pdftrue \fi
 
-
-
 \documentclass[11pt,a4paper, \zweiseitig]{article}
 
-%used packages
-\input{packages}
 
-\input{layout}
-%set notebook configs
-\input{notebooksetup}
 
-\input{style_notebook-setup}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[iso]{umlaute}
+\usepackage[utf8x]{inputenc}
+\usepackage{palatino} % palatino Schriftart
+%\usepackage{makeidx} % um ein Index zu erstellen
+\usepackage[nottoc]{tocbibind}
+\usepackage[T1]{fontenc} %fuer richtige Trennung bei Umlauten
+\usepackage{fancybox} % fuer die Rahmen
+\usepackage{shortvrb}
+\usepackage{ifthen}
 \ifthenelse{\equal{\sprache}{deutsch}}{\usepackage[ngerman]{babel}}{}
 
+\usepackage{a4wide} % ganze A4 Weite verwenden
 
+%\ifpdf
+%\usepackage[pdftex,xdvi]{graphicx}
+%\usepackage{thumbpdf} %thumbs fuer Pdf
+%\usepackage[pdfstartview=FitV]{hyperref} %anklickbares Inhaltsverzeichnis
+%\else
+%\usepackage[dvips,xdvi]{graphicx}
+\usepackage{graphicx}
+\usepackage{hyperref} %anklickbares Inhaltsverzeichnis
+%\fi
 
+%%%%%%%%%%%%%%%%%%%%%%% Massangaben fuer die Arbeit %%%%%%%%%%%%%%%
+\setlength{\textwidth}{15cm}
+
+\setlength{\oddsidemargin}{35mm}
+\setlength{\evensidemargin}{25mm}
+
+\addtolength{\oddsidemargin}{-1in}
+\addtolength{\evensidemargin}{-1in}
+
+%\makeindex
 
 \begin{document}
 
 %\setcounter{secnumdepth}{4} %Nummerieren bis in die 4. Ebene
 %\setcounter{tocdepth}{4} %Inhaltsverzeichnis bis zur 4. Ebene
 
-%\pagestyle{headings}
-%\pagestyle{fancy}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\setlength{\headheight}{15pt}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\pagestyle{headings}
 
 \sloppy % LaTeX ist dann nicht so streng mit der Silbentrennung
 %~ \MakeShortVerb{\§}
@@ -129,7 +105,7 @@
         %\selectlanguage{german}
         {\Large INSTITUT FÜR INFORMATIK\\}
         {\normalsize
-          Computer Vision, Computer Graphics and Pattern Recognition\\
+          Datenbanken und Informationssysteme\\
         }
         \vspace{3mm}
         {\small Universitätsstr. 1 \hspace{5ex} D--40225 Düsseldorf\\}
@@ -137,7 +113,7 @@
     \end{minipage}
   }
   \hfill
-  \includegraphics[width=130pt]{images/HHU_Logo}
+  \includegraphics[width=130pt]{bilder/HHU_Logo}
   \vspace{14em}
 
 % Titel
@@ -202,8 +178,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Hiermit versichere ich, dass ich diese \arbeit~
-selbstständig verfasst habe. Ich habe dazu keine anderen als die angegebenen Quellen und Hilfsmittel verwendet.
-Alle Stellen, die aus den Quellen entnommen wurden, sind als solche kenntlich gemacht worden. Diese Arbeit hat in gleicher oder ähnlicher Form noch keiner Prüfungsbehörde vorgelegen.
+selbstständig verfasst habe. Ich habe dazu keine anderen als die
+angegebenen Quellen und Hilfsmittel verwendet.
 
 \vspace{25 mm}
 
@@ -223,24 +199,24 @@ Düsseldorf, den \abgabedatum \hspace*{2cm} & \underline{\hspace{6cm}}\\
 ~\end{titlepage}}{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \clearpage
+\begin{titlepage}
+
 \input{zusammenfassung}
-\input{acknowledgement}
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Untere Titelmakros. Editieren Sie diese Datei nur, wenn Sie sich
 % ABSOLUT sicher sind, was Sie da tun!!!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace*{\fill}
+\end{titlepage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Leerseite bei zweiseitigem Druck
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\ifthenelse{\equal{\zweiseitig}{twoside}}
-%  {\clearpage\begin{titlepage}~\end{titlepage}}{}
+\ifthenelse{\equal{\zweiseitig}{twoside}}
+  {\clearpage\begin{titlepage}~\end{titlepage}}{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage \setcounter{page}{1}
 \pagenumbering{roman}
@@ -249,7 +225,6 @@ Düsseldorf, den \abgabedatum \hspace*{2cm} & \underline{\hspace{6cm}}\\
 
 %\enlargethispage{\baselineskip}
 \clearpage
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Leere Seite, falls Inhaltsverzeichnis mit ungerader Seitenzahl und 
 % doppelseitiger Druck

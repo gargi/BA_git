@@ -40,11 +40,8 @@
 
 \bibliography{references}
 
-\bibliographystyle{alphadin}
-%\bibliographystyle{abbrv}
-%\bibliographystyle{alpha}
-%\bibliographystyle{unsrt}
-%\vspace*{\fill}
+%\bibliographystyle{alphadin} %alpha in deutsch
+\bibliographystyle{alpha}
 
 \clearpage
 
@@ -52,15 +49,14 @@
 
 \listoftables
 
-%\input{noteAms}
 \pagebreak
 
 \ifthenelse{ \( \equal{\zweiseitig}{twoside} \and \not \isodd{\value{page}} \)}
 	{\pagebreak \thispagestyle{empty} \cleardoublepage}{\clearpage}
 	
 \appendix
-%\input{appendixA}
-%\input{appendixB}
+\input{appendixA}
+\input{appendixB}
 
 %\pagebreak
 

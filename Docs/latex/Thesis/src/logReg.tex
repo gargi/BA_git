@@ -2,12 +2,33 @@
 The first model we use is \emph{Logistic Regression}. As this implementation uses \emph{coordinate descent} of the \emph{LIBLINEAR} library to solve optimization problems, we expect this classifier to have a short runtime \cite{cdl2}. This enables us to test basic assumptions about the data without spending too much time on this method, in case it does not perform well.
 
 \subsubsection{Classification method}
-Basically, this classifier uses a n-dimensional linear function to separate the n-dimensional data. It predicts the labels using a logistic function, which returns the probability of one datapoint being of class \emph{signal} or \emph{background} based on their distance to the linear function.
-Using  L2-regularization, this classification is fitted by optimizing \begin{equation}
-	\label{l2}
-	\operatorname*{\emph{min}}_{w,c} ||w||_1 + C \sum\limits_{i=1}^{n}\log(\exp(-y_i(X_i^{T} w + c )) + 1)
-\end{equation}, where $X_i$ is $z$-dimensional data of an event $i$ with the \emph{true label} $y_i$. A vector $w$ weights all $z$ features of $X_i$ and $c$ adds a \emph{bias}. A positive, real number $C$ is chosen by the user to set regularization strength \cite{sklearn}.
+Basically, this classifier scales each dimension of the $n$-dimensional data. We write a scaled datapoint $x$ as linear combination
+
+\begin{equation}
+	\label{eq:lincomb}
+	g(x)=w_1 x_1 + w_2 x_2 + ... + w_n x_n + c
+	\mathrm{\hspace{1em},}
+\end{equation}
+
+where $x = {x_1,x_2, \cdots ,x_n}$ is a datapoint, $w_1,w_2,...,w_n$ are the weights for $n$ features and $c$ adds a \emph{bias}. Eq. \eqref{eq:lincomb} can be compressed to
+
+\begin{equation}
+	\label{eq:linvect}
+	g(x)=x^T w + c
+	\mathrm{\hspace{1em},}
+\end{equation}
+
+using vectors for data and weights.\\
+Using a logistic function $h$, the classifier predicts the probability of a datapoint being of class \emph{signal} or \emph{background} based on their distance to a linear function. This function marks the points $z$, where $h$ predicts equal probability for both classes, i.e. $h(g(z))=0.5$.\\
+Using  L2-regularization, this classification is fitted by optimizing
+
+\begin{equation}
+	\label{eq:l2}
+	\operatorname*{\min}_{w,c} ||w||_1 + C \sum\limits_{i=1}^{m}\log(\exp(-y_i(X_i^{T} w + c )) + 1) \mathrm{\hspace{1em},}
+\end{equation}
+
+where $X_i$ is $n$-dimensional data of an event $i$ with the \emph{true label} $y_i$. A vector $w$ weights all $n$ features of $X_i$ and $c$ adds a \emph{bias}. A positive, real number $C$ is chosen by the user to set regularization strength \cite{sklearn}.
 
 \subsubsection{Performance and optimization}
-Logistic Regression achieves an AMS of ~2.0, using the full datasets with all features and tuned parameters. The first approach for optimization was feature selection. We achieve the best prediction using Set 8, which uses common features of best predicting runs of Logistic Regression with random feature sets. The most promising explanation for this sets success is, that the set contains no features with missing values. Other tests with more features without missing values fail to increase the AMS scores. As other possible improvement of the method, the \emph{logisticRegressionCV}-class from scikit-learn allows us to use a custom scoring-method via cross-validation. For that purpose, we choose \emph{"ROC AUC"} (AUC). During the challenge, competitors used AUC as an alternative to AMS as objective function for optimization, due to the tasks relation to a ranking problem. However, AUC- is not equivalent to AMS-optimization \cite{cowa14}.
-In practice, these tuning-affords fail to achieve higher AMS. An explanation for this poor performance is the noise-heavy data we want to classify.
+Logistic Regression achieves an AMS of $\approx$ 2.0 by using the full datasets with all features and tuned parameters. The first approach for optimization is feature selection. We achieve the best prediction using Set 8, which uses common features of best predicting runs of Logistic Regression with random feature sets. The most promising explanation for this set's success is, that the set contains no features with missing values. Other tests with more features without missing values fail to increase the AMS scores. As other possible improvement of the method, the \emph{logisticRegressionCV} class from scikit-learn allows us to use a custom scoring method via cross-validation. For that purpose, we choose \emph{"ROC AUC"} (AUC). During the challenge, competitors used AUC as an alternative to AMS as objective function for optimization, due to the task's relation to a ranking problem. However, AUC- is not equivalent to AMS-optimization \cite{cowa14}.
+In practice, these tuning efforts fail to achieve higher AMS. An explanation for this poor performance is the noise heavy data we want to classify.
