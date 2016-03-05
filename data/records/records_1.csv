@@ -1,26 +1,15 @@
 Classifier,Featurelist,CV_Score,PublicAMS,PrivateAMS,time_train,time_pred,Settings,None,None,None,None,None,None,None,None,None,None,None,None
 log Reg,header_1,0.70938,1.90091024755357,1.91316974067223,2.21812510490417,0.20905590057373,threshold=0.3333,C=1.0,penalty=l2,None,None,None,None,None,None,None,None,None,None
 log Reg,header_all,0.74905,2.02949525118019,2.05037527287158,34.7109830379486,0.42004895210266,threshold=0.4444,C=1.0,penalty=l2,None,None,None,None,None,None,None,None,None,None
-log Reg,header_1,0.70938,1.90091024755357,1.91316974067223,2.01915693283081,0.18800806999206,threshold=0.3333,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
-log Reg,header_2,0.72154,1.87821551290652,1.89130119619110,1.35107707977294,0.17105197906494,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
 log Reg,header_2,0.72154,1.87821551290652,1.89130119619110,1.35907816886901,0.17900896072387,threshold=0.4444,C=1.0,penalty=l2,None,None,None,None,None,None,None,None,None,None
-log Reg,header_3,0.73642,1.98433499152982,1.99593663118959,8.10150003433227,0.25501704216003,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
 log Reg,header_3,0.73642,1.98433499152982,1.99593663118959,8.06049799919128,0.25001597404479,threshold=0.4444,C=1.0,penalty=l2,None,None,None,None,None,None,None,None,None,None
-log Reg,header_4,0.73081,1.94370118184853,1.96043403407742,3.87375020980834,0.21847486495971,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
 log Reg,header_4,0.73081,1.94370118184853,1.96043403407742,3.88922309875488,0.22105002403259,threshold=0.4444,C=1.0,penalty=l2,None,None,None,None,None,None,None,None,None,None
-log Reg,header_5,0.71856,1.91032636661636,1.90633053232789,2.42916607856750,0.19702482223510,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
 log Reg,header_5,0.71856,1.91032636661636,1.90633053232789,2.41513895988464,0.20205092430114,threshold=0.4444,C=1.0,penalty=l2,None,None,None,None,None,None,None,None,None,None
-log Reg,header_6,0.71113,1.89629260259964,1.90466578842890,2.17716503143310,0.20000886917114,threshold=0.3333,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
 log Reg,header_6,0.71113,1.89629260259964,1.90466578842890,2.18612384796142,0.20705103874206,threshold=0.3333,C=1.0,penalty=l2,None,None,None,None,None,None,None,None,None,None
-log Reg,header_7,0.71495,1.90470853821446,1.91788124174226,4.50828218460083,0.21802783012390,threshold=0.3333,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
 log Reg,header_7,0.71495,1.90470853821446,1.91788124174226,4.53430080413818,0.21501016616821,threshold=0.3333,C=1.0,penalty=l2,None,None,None,None,None,None,None,None,None,None
-log Reg,header_8,0.73926,2.04480142600976,2.06934119373163,3.66517996788024,0.21003699302673,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
 log Reg,header_8,0.73926,2.04480142600976,2.06934119373163,3.80221796035766,0.21201109886169,threshold=0.4444,C=1.0,penalty=l2,None,None,None,None,None,None,None,None,None,None
-log Reg,header_x,0.7497,2.03215013520882,2.05174659434856,37.7421770095825,0.32597899436950,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
 log Reg,header_x,0.7497,2.03215013520882,2.05174659434856,37.7371349334716,0.32406210899353,threshold=0.4444,C=1.0,penalty=l2,None,None,None,None,None,None,None,None,None,None
-log Reg,header_all,0.74905,2.02949525118019,2.05037527287158,32.0378570556640,0.38402199745178,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
-log Reg,header_final5,0.70196,1.71845231435389,1.73292115266765,1.47212505340576,0.18300700187683,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
-log Reg,header_final10,0.73299,2.00491328558830,2.02119535289799,4.42929315567016,0.23601388931274,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
+log Reg,header_x,0.7497,2.03215013520882,2.05174659434856,37.7371349334716,0.32406210899353,threshold=0.4444,C=1.0,penalty=l2,None,None,None,None,None,None,None,None,None,None
 kNN,header_1,0.8197,3.12138448345385,3.16363617632911,1.33112597465515,42.5624618530273,threshold=0.7777,k=101,p=2,None,None,None,None,None,None,None,None,None,None
 kNN,header_1,0.81897,3.13156746761187,3.15180315624979,1.29611587524414,69.8980181217193,threshold=0.7777,k=201,p=2,None,None,None,None,None,None,None,None,None,None
 kNN,header_2,0.81662,3.02637196232740,3.07978169685531,2.19820404052734,27.5195538997650,threshold=0.7777,k=51,p=2,None,None,None,None,None,None,None,None,None,None
@@ -284,24 +273,14 @@ xgboost,header_all,2.4321543,3.64688814117382,3.70096850659828,1272.58434510231,
 xgboost,header_1,2.45522136667,3.33527962220599,3.33522093499668,651.792622089386,77.48446393013,threshold=0.14,steps_=3000,depth_=9,eta_=0.01,subsample_=0.9,eval_1=auc,eval_2=ams@0.14,None,None,None,None,None,None
 xgboost,header_6,2.45161023333,3.35930826976692,3.36969442914195,665.653434991836,78.3204979896545,threshold=0.14,steps_=3000,depth_=9,eta_=0.01,subsample_=0.9,eval_1=auc,eval_2=ams@0.14,None,None,None,None,None,None
 xgboost,header_x,2.4203028,3.56596662781861,3.63225201359117,1023.86108112335,81.0226349830627,threshold=0.14,steps_=3000,depth_=9,eta_=0.01,subsample_=0.9,eval_1=auc,eval_2=ams@0.14,None,None,None,None,None,None
-log Reg,header_1,0.70938,1.90091024755357,1.91316974067223,2.22316312789917,0.20297694206237,threshold=0.3333,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
-log Reg,header_2,0.72154,1.87821551290652,1.89130119619110,1.4271240234375,0.17800879478454,threshold=0.4444,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
 log Reg,header_2,0.72154,1.87821551290652,1.89130119619110,1.41012120246887,0.17702889442443,threshold=0.4444,C=1.0,penalty=l1,None,None,None,None,None,None,None,None,None,None
-log Reg,header_3,0.73642,1.98433499152982,1.99593663118959,8.48248910903930,0.29001784324645,threshold=0.4444,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
 log Reg,header_3,0.73642,1.98433499152982,1.99593663118959,8.50849103927612,0.27804398536682,threshold=0.4444,C=1.0,penalty=l1,None,None,None,None,None,None,None,None,None,None
-log Reg,header_4,0.73081,1.94370118184853,1.96043403407742,4.11023688316345,0.22501111030578,threshold=0.4444,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
 log Reg,header_4,0.73081,1.94370118184853,1.96043403407742,4.02420616149902,0.22805380821228,threshold=0.4444,C=1.0,penalty=l1,None,None,None,None,None,None,None,None,None,None
-log Reg,header_5,0.71856,1.91032636661636,1.90633053232789,2.48818302154541,0.19901490211486,threshold=0.4444,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
 log Reg,header_5,0.71856,1.91032636661636,1.90633053232789,2.55417299270629,0.20604205131530,threshold=0.4444,C=1.0,penalty=l1,None,None,None,None,None,None,None,None,None,None
-log Reg,header_6,0.71113,1.89629260259964,1.90466578842890,2.41513991355896,0.23203516006469,threshold=0.3333,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
 log Reg,header_6,0.71113,1.89629260259964,1.90466578842890,2.41718196868896,0.23401522636413,threshold=0.3333,C=1.0,penalty=l1,None,None,None,None,None,None,None,None,None,None
-log Reg,header_7,0.71495,1.90470853821446,1.91788124174226,4.94832706451416,0.23497080802917,threshold=0.3333,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
 log Reg,header_7,0.71495,1.90470853821446,1.91788124174226,4.78623199462890,0.25605583190917,threshold=0.3333,C=1.0,penalty=l1,None,None,None,None,None,None,None,None,None,None
-log Reg,header_8,0.73926,2.04480142600976,2.06934119373163,4.54926085472106,0.24901413917541,threshold=0.4444,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
 log Reg,header_8,0.73926,2.04480142600976,2.06934119373163,4.31226301193237,0.23303985595703,threshold=0.4444,C=1.0,penalty=l1,None,None,None,None,None,None,None,None,None,None
-log Reg,header_x,0.7497,2.03215013520882,2.05174659434856,43.6735539436340,0.37005686759948,threshold=0.4444,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
 log Reg,header_x,0.7497,2.03215013520882,2.05174659434856,43.3705010414123,0.36203002929687,threshold=0.4444,C=1.0,penalty=l1,None,None,None,None,None,None,None,None,None,None
-log Reg,header_all,0.74905,2.02949525118019,2.05037527287158,36.5151059627532,0.45702505111694,threshold=0.4444,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
 log Reg CV,header_1,0.71096,1.90428029444330,1.91592657358990,10.3276381492614,0.21297001838684,threshold=0.3333,Cs=1,penalty=l1,scoring = 'roc_a,None,None,None,None,None,None,None,None,None
 log Reg CV,header_2,0.71561,1.85962842198584,1.88151562168595,8.46448683738708,0.19601202011108,threshold=0.4444,Cs=1,penalty=l1,scoring = 'roc_a,None,None,None,None,None,None,None,None,None
 log Reg CV,header_3,0.73507,1.96216755909995,1.98149424825609,33.3609240055084,0.26706004142761,threshold=0.4444,Cs=1,penalty=l1,scoring = 'roc_a,None,None,None,None,None,None,None,None,None
@@ -1102,4 +1081,27 @@ xgboost,header_x,2.4203028,3.59185311540800,3.63583684934967,888.699196100235,55
 kNN,header_1,0.78712,2.23956963293663,2.25869620700653,1.13106608390808,11.8796839714050,threshold=0.8888,k=3,p=1,None,None,None,None,None,None,None,None,None,None
 kNN,header_1,0.78797,2.33091085086048,2.35584411276527,1.14902615547180,13.1087958812713,threshold=0.6666,k=4,p=1,None,None,None,None,None,None,None,None,None,None
 kNN,header_1,0.8007,2.55905053922795,2.58191109815120,1.10602188110351,16.1509730815887,threshold=0.7777,k=6,p=1,None,None,None,None,None,None,None,None,None,None
-log Reg,header_new,0.73864,2.00408376625549,2.02004186169830,12.8287379741668,0.29705905914306,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
+log Reg,header_1,0.70939,1.90119302829987,1.91321681416564,3.03117299079895,0.23701596260070,threshold=0.3333,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
+log Reg,header_2,0.72153,1.87825458309719,1.89129422653504,1.92811203002929,0.21405386924743,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
+log Reg,header_3,0.73622,1.98190611328148,1.99805235854101,10.9496748447418,0.32097506523132,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
+log Reg,header_4,0.73077,1.94313793887205,1.96007675225007,5.37030816078186,0.30302000045776,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
+log Reg,header_5,0.71856,1.91078578038367,1.90673822974583,3.27318692207336,0.25406312942504,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
+log Reg,header_6,0.71112,1.89629260259964,1.90478648111803,2.98117208480834,0.26605796813964,threshold=0.3333,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
+log Reg,header_7,0.71465,1.90472836692301,1.91787312828916,6.05039215087890,0.29897499084472,threshold=0.3333,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
+log Reg,header_8,0.73912,2.04562322781762,2.07029542090901,5.05928897857666,0.27801704406738,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
+log Reg,header_x,0.74958,2.03306120092032,2.05224191940161,41.2723422050476,0.45002293586730,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
+log Reg,header_all,0.74851,2.03147638690839,2.04956377420407,52.6220321655273,0.55002999305725,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
+log Reg,header_1,0.70939,1.90119302829987,1.91321681416564,2.85420989990234,0.24501109123229,threshold=0.3333,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
+log Reg,header_2,0.72153,1.87825458309719,1.89129422653504,1.8681640625,0.21799683570861,threshold=0.4444,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
+log Reg,header_3,0.73622,1.98190611328148,1.99805235854101,10.4016411304473,0.31497788429260,threshold=0.4444,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
+log Reg,header_4,0.73077,1.94313793887205,1.96007675225007,5.21230316162109,0.28701400756835,threshold=0.4444,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
+log Reg,header_5,0.71856,1.91078578038367,1.90673822974583,3.20718717575073,0.25401878356933,threshold=0.4444,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
+log Reg,header_6,0.71112,1.89629260259964,1.90478648111803,2.91816806793212,0.25701498985290,threshold=0.3333,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
+log Reg,header_7,0.71465,1.90472836692301,1.91787312828916,6.09530210494995,0.28902077674865,threshold=0.3333,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
+log Reg,header_8,0.73912,2.04562322781762,2.07029542090901,4.61926698684692,0.28605890274047,threshold=0.4444,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
+log Reg,header_x,0.74958,2.03306120092032,2.05224191940161,41.1623690128326,0.45402717590332,threshold=0.4444,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
+log Reg,header_all,0.74851,2.03147638690839,2.04956377420407,51.4289650917053,0.52003097534179,threshold=0.4444,C=0.1,penalty=l1,None,None,None,None,None,None,None,None,None,None
+kNN,header_6,0.81892,3.18534579809683,3.17144377327013,1.15410709381103,110.166372060775,threshold=0.7777,k=297,p=1,None,None,None,None,None,None,None,None,None,None
+gbc,header_all,0.869924,3.28927069645223,3.42808660853669,8322.90483593940,10.2775928974151,threshold=0.6666,trees_=100,depth_=12,eta_=0.01,subsample_=0.9,None,None,None,None,None,None,None,None
+log Reg,header_8,0.73912,2.04562322781762,2.07029542090901,6.75238895416259,0.44402599334716,threshold=0.4444,C=0.1,penalty=l2,None,None,None,None,None,None,None,None,None,None
+xgboost,header_all,   test-ams@0.14,3.66421262680941,3.71268472156738,1099.13236880302,69.8130800724029,threshold=0.855,steps_=2500,depth_=9,eta_=0.01,subsample_=0.9,eval_1=auc,eval_2=ams@0.14,None,None,None,None,None,None

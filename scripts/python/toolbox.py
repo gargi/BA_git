@@ -8,6 +8,7 @@ scriptFolderPath = os.path.dirname(os.getcwd())
 mainFolderPath = os.path.dirname(scriptFolderPath)
 dataPath = (mainFolderPath + "/data")
 submissionPath = (dataPath + "/submissions")
+recordPath = (dataPath + "/records")
 
 
 """
@@ -170,21 +171,53 @@ def createSubmissionArray(soft_prediction):
     expData[:,2] = soft_prediction[:]
     expData = sortByColumn(expData,2)
     expData[:,1] = np.arange(1,550001)
-    expData = sortByColumn(expData,0)
 
     return expData
 
-def createSubmissionFile(soft_prediction,fname,threshold=0.5):
+def createSubmissionFile(soft_prediction,fname,threshold=0.5, rankThreshold = False):
+    if rankThreshold:
+        _createSubmissionFileByThreshold(soft_prediction,fname,threshold)
+    else:
+        expData = createSubmissionArray(soft_prediction)
+        expData = sortByColumn(expData,0)
+
+        filePath = str(submissionPath + "/" + fname)
+        outputfile=open(filePath,"w")
+        outputfile.write("EventId,RankOrder,Class\n")
+
+        for i in range(0,len(expData[:,0])):
+            event = int(expData[i,0])
+            rank = int(expData[i,1])
+        
+            if expData[i,2] >= threshold:
+                label="s"
+            else:
+                label = "b"
+
+            outputfile.write(str(event)+",")
+            outputfile.write(str(rank)+",")
+            outputfile.write(label)            
+            outputfile.write("\n")
+
+        outputfile.close()
+
+def _createSubmissionFileByThreshold(soft_prediction,fname,threshold=0.14):
     expData = createSubmissionArray(soft_prediction)
     filePath = str(submissionPath + "/" + fname)
     outputfile=open(filePath,"w")
     outputfile.write("EventId,RankOrder,Class\n")
 
+    n_top = int(threshold * len(expData))
+    expData[:n_top,2]=0
+    expData[n_top:,2]=1
+
+
+    expData = sortByColumn(expData,0)
     for i in range(0,len(expData[:,0])):
         event = int(expData[i,0])
         rank = int(expData[i,1])
     
-        if expData[i,2] >= threshold:
+        if int(expData[i,2]) == 1:
             label="s"
         else:
             label = "b"
@@ -198,17 +231,19 @@ def createSubmissionFile(soft_prediction,fname,threshold=0.5):
 
 #result-recording
 def newRunRecord(fname,headerStr="Classifier,Featurelist,CV_Score,PublicAMS,PrivateAMS,time_train,time_pred,Settings"):
-    file=open(fname,"w")
+    filePath = str(recordPath + "/" + fname)
+    file=open(filePath,"w")
     file.write(str(headerStr+"\n"))
     file.close()
 
 #classifier,settings,featureList,cv_score,public_ams,private_ams
 def recordRun(res,fname = "records_1.csv"):
+    filePath = str(recordPath + "/" + fname)
     #check if fname is valid
     try:
-        file=open(fname,"a")
+        file=open(filePath,"a")
     except:
-        print("Error: ",fname,"not found.")
+        print("Error: ",filePath,"not found.")
         return
     #check input-array
     if res.dtype != '<U16':
@@ -227,10 +262,11 @@ def recordRun(res,fname = "records_1.csv"):
     file.close()
 
 def getRecord(fname = "records_1.csv"):
+    filePath = str(recordPath + "/" + fname)
     try:
-        f=open(fname,"r")
+        f=open(filePath,"r")
     except:
-        print("Error: ",fname,"not found.")
+        print("Error: ",filePath,"not found.")
         return
 
     csvR = csv.reader(f)
