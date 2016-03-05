@@ -61,6 +61,19 @@ target/
 #personal
 downloads/
 
+#latex
+docs\latex\*\src\*.toc
+docs\latex\*\src\*.aux
+docs\latex\*\src\*.bbl
+docs\latex\*\src\*.blg
+docs\latex\*\src\*.lof
+docs\latex\*\src\*.log
+docs\latex\*\src\*.lot
+docs\latex\*\src\*.out
+docs\latex\*\src\*.gz
+docs\latex\*\src\*.toc
+docs\latex\*\src\*.pdf
+
 atlas-higgs-challenge-2014-v2.csv
 *.csv
 higgs.model.*
