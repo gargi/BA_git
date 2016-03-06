@@ -37,7 +37,7 @@ As stated in Sect. \ref{sec:lb}, we choose our best submissions by their public 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[trim=50 0 50 25,clip,width=\textwidth]{images/amscompare.pdf}
+	\includegraphics[trim=50 0 50 75,clip,width=\textwidth]{images/amscompare.pdf}
 	\\Benchmarks placed by challenge organizers have prefix bm.
 	\caption{Public and private AMS plotted to equivalent rank}
 	\label{fig:ranks}
@@ -52,7 +52,7 @@ Over all, kNN was the only method we used that profited heavily from \emph{exclu
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[trim=50 0 50 25,clip,width=\textwidth]{images/setperformance.pdf}
+	\includegraphics[trim=50 0 50 75,clip,width=\textwidth]{images/setperformance.pdf}
 	\\Note the set sizes, listed in Tab. \ref{tab:feats}.
 	\caption{Performances of classifiers for specific feature sets}
 	\label{fig:setperf}
@@ -74,7 +74,11 @@ Since we did not perform experiments with neural networks in this thesis, we can
 While XGBoost did not win the Higgs Boson Machine Learning Challenge, it did have a strong impact on following Kaggle competitions. The most recently closed competition \emph{Prudential Life Insurance Assessment}\footnote{The competition closed on 15 February 2016.\\ URL: \url{https://www.kaggle.com/c/prudential-life-insurance-assessment}} features an ensemble of XGBoost classifiers as winning model. This and other methods involving XGBoost finished several competitions on Kaggle in top ranks \cite{xgbdoc}.
 
 \subsubsection{Future Kaggle and CERN collaborations}
-After \emph{The Higgs Boson Machine Learning Challenge} had ended, many competitors criticized AMS evaluation by calculating the so-called \emph{Leaderboard Shake-up}. In the Kaggle forums, this formula is often stated as \texttt{shake-up = mean[abs(private\_rank - public\_rank) / number\_of\_teams]}. We can express this mathematically as
+After \emph{The Higgs Boson Machine Learning Challenge} had ended, many competitors criticized AMS evaluation by calculating the so-called \emph{Leaderboard Shake-up}. In the Kaggle forums, this formula is often stated as
+\begin{center}
+\texttt{shake-up = mean[abs(private\_rank - public\_rank) / number\_of\_teams]}.
+\end{center}
+We can express this mathematically as
 
 \begin{equation}\label{eq:shakeup}
 	\mathrm{Shake-up}:= s(v,b)= \frac{1}{N*n} \sum\limits_{i=1}^n |v_i-b_i| \mathrm{\hspace{1em},}
