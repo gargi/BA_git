@@ -1,16 +1,58 @@
 \section{The Code used for this Thesis}\label{app:code}
+The code can be accessed on Github via the URL \url{https://github.com/gargi/BA_git/}.
+
+To run any code it is required to unpack the data provided by opendata.cern. The file \texttt{atlas-higgs-challenge-2014-v2.csv.gz} is found in the directory \texttt{data}. Unpacking this file in place is sufficient.
 
 \subsection{Requirements}
+The functionality of the code has been successfully tested for Windows 8.1 64bit and Linux MINT 17.2 Rafaela.
+The Github release requires at least 500mb free Hard-disk space.
 
-Python 3.4.4
+\subsubsection{Software dependencies}
+Any code for this thesis was created for following software dependencies, functionality for other versions has not been tested:
 
-scikit-learn 0.17
+\begin{center}
+\begin{tabular}{| l | c | l |}
+	\hline
+	Software & Version used & Needed for \\
+	\hline
+	\hline
+	Python & 3.4.4 & everything\\
+	\hline
+	jupyter & 4.0.6 & working with IPython notebooks\\
+	\hline
+	\hline
+	\multicolumn{3}{ |l| }{Python packages} \\
+	\hline
+	numpy & 1.10.1 & everything\\
+	\hline
+	matplotlib & 1.5.1 & plotting\\
+	\hline
+	scikit-learn & 0.17 & all classification but xgboost\\
+	\hline
+	graphviz & 2.38.0 & plotting decision trees of xgboost\\
+	\hline
+	xgboost & 0.47 & classification with xgboost\\
+	\hline	
+\end{tabular}
+\end{center}
 
-numpy
+An installation guide for xgboost is provided within the package's documentation \cite{xgbdoc}.
 
-matplotlib
+\subsection{Showcases}
+With the notebook format, IPython provides a great way for explaining code stepwise. Since Github is able to render this format online in repositories an increasing number of public repositories use this way to introduce new users to their code.
 
-xgboost 0.47
+Several notebooks had been created as showcases for the code created and used in this thesis.\\
+It is recommended to work with them by following order:
 
-
-jupyter 4.0.6
+\begin{enumerate}
+	\item \texttt{showcase\_kaggleData.ipynb}\\
+			As most functionality is used in some way on data, this showcase presents simple methods to access data relevant to Kaggle and \emph{The Higgs Boson Machine Learning Challenge}.
+	\item \texttt{showcase\_toolbox.ipynb}\\
+			We introduce further tools that are used in the rest of showcases. This includes functionality important for Kaggle competitions, like building a submission file.
+	\item \texttt{showcase\_figures.ipynb}\\
+			This showcase combines the tools we introduced in 1. and 2. to reproduce figures used in this thesis. Figures \ref{fig:knnams} and \ref{fig:knnspeed} are excluded as they were created using the raster graphics editor Paint.NET.\\Fig. \ref{fig:tree} is reproduced in \texttt{showcase\_xgboost.ipynb} and Fig. \ref{fig:xgb-speed} is cited from another work \cite{chen14}.
+	\item \texttt{showcase\_sklearn.ipynb}\\
+			We perform classification with scikit-learn and reproduce best submission files. This includes the creation of recording mechanics we used in testing.
+	\item \texttt{showcase\_xgboost.ipynb}\\
+			XGBoost is presented independent of the other classification methods.
+\end{enumerate}
