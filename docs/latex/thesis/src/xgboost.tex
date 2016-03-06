@@ -33,7 +33,7 @@ where \emph{l} is a loss function, $y_j$ the \emph{true} label of $x_j$ and $F$ 
 	\frac{\partial l}{\partial f_2(x_j)} = y - f_1(x_j) \mathrm{\hspace{1em},}
 \end{equation}
 we can observe that $- \frac{\partial l}{\partial f_2(x_j)}$ equals the residual $f_2(x) = y - f_1(x)$.
-Thus, residuals of a Boosting model can be interpreted as negative \emph{gradients} that allows minimization of the loss function using \emph{gradient descent}. This is called \emph{gradient boosting}. Further, one can show that a gradient boosting algorithm can be constructed for \emph{any} loss function \cite{gradboost}.
+Thus, residuals of a Boosting model can be interpreted as negative \emph{gradients} that allow minimization of the loss function using \emph{gradient descent}. This is called \emph{gradient boosting}. Further, one can show that a gradient boosting algorithm can be constructed for \emph{any} loss function \cite{gradboost}.
 
 The more complex a classification model is, the higher is the chance of overfitting. Considering this, the main difference of XGBoost to other gradient boosting classifiers is the simple idea to penalize complex models in the ensemble. This is achieved by adding a regularization term $\Omega(f)$, which measures the complexity of $f$, to the objective function Eq.\eqref{eq:boost_objective}. Training this classifier minimizes not only the loss function, but also $\Omega(f_t)$.
 The actual predictions are made by weighted \emph{decision trees} with a chosen maximum depth, which are initialized with random values.
@@ -47,9 +47,9 @@ We visualize a tree in Fig. \ref{fig:tree} using XGBoost's \emph{plot\_tree} met
 \end{center}
 \end{figure}
 \subsubsection{Performance and optimization}
-Using default settings, 100 trees and AMS evaluation, XGBoost achieves a public AMS of about 3.32 using the complete, original data set. We get significantly better results by tuning parameters with respect to the public AMS, mainly increasing the number of trees up to 3000 and lowering \emph{eta}. Latter parameter determines the \emph{step size shrinkage} to prevent overfitting. Testing shows that \emph{eta} is inversely related to the tree number, the more trees are used for training, the lower should \emph{eta} be chosen.
+Using default settings, 100 trees and AMS evaluation, XGBoost achieves a public AMS of about 3.32 using the complete, original data set. We get significantly better results by tuning parameters with respect to the public AMS, mainly increasing the number of trees up to 3000 and lowering \emph{eta}. The latter parameter determines the \emph{step size shrinkage} to prevent overfitting. Testing shows that \emph{eta} is inversely related to the tree number, the more trees are used for training, the lower \emph{eta} should be.
 Using all parameters, we are still not able to reproduce the exact AMS on the original data stated in \cite{chen14}.
-Cutting phi-values, which is suggested by some competitors that use XGBoost \cite{blog}, does not improve the results. Further feature selection fails to resolve into better AMS. Adding artificial features works beneficial for several submissions using the method.\\
+Cutting phi-values, which is suggested by some competitors that use XGBoost \cite{blog}, does not improve the results. Further feature selection fails to resolve into better AMS. Adding artificial features proved beneficial for several submissions using the method.\\
 In its recent version, XGBoost provides several alternative objective functions and evaluation metrics. As the package has been developed for the Kaggle challenge, it also contains AMS and AUC as metrics. While the original submission used AUC as model evalutation, we use AUC \emph{and} AMS for training XGBoost with no noticeable disadvantages.
 
 Many software packages implement gradient boosting, as it is an established method in machine learning. While Fig. \ref{fig:xgb-speed} compares speed benchmarks, with all algorithms set up to fit 120 trees with depth 6 and \emph{eta}=0.1, we consider AMS as it is the main goal of the challenge. Since our approaches rely on scikit-learn, we compare the performance of the \emph{GradientBoostingClassifier}(GBC) class to XGBoost , see Fig. \ref{fig:xgb-gbc}.\\
@@ -75,7 +75,7 @@ By preprocessing the mathematical model and using decision trees, the training c
 %\vspace{1ex}
 \end{figure}
 
-Regarding the special award, XGBoost seems to fulfil every of its defined aspects. While many other submissions outperform the best benchmark \emph{MultiBoost} easily as well, this package does it remarkably fast. Training time for a benchmark surpassing result takes under 37 seconds with tuned parameters, using up to 8 CPU threads. This specific run achieved a public AMS of 3.5399.
+Regarding the special award, XGBoost seems to fulfil each of its defined aspects. While many other submissions outperform the best benchmark \emph{MultiBoost} easily as well, this package does so remarkably quickly. Training time for a benchmark surpassing result takes under 37 seconds with tuned parameters, using up to 8 CPU threads. This specific run achieved a public AMS of 3.5399.
 The developers made the package available early in the challenge and many other participants used it at some point to test custom feature sets or benchmark their own approaches.
 
 It is justified to acknowledge this package, as it could have impact on tools, which are being used in high energy physics\cite{HEPml}.

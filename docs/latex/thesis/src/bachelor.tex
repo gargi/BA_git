@@ -53,10 +53,11 @@
 
 \ifthenelse{ \( \equal{\zweiseitig}{twoside} \and \not \isodd{\value{page}} \)}
 	{\pagebreak \thispagestyle{empty} \cleardoublepage}{\clearpage}
-	
+
+\phantomsection
 \appendix
 \input{appendixA}
-\input{appendixB}
+%\input{appendixB}
 
 %\pagebreak
 

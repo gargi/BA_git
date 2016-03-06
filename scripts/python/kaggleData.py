@@ -5,12 +5,13 @@ import urllib.request
 import urllib.error
 from lxml import html
 
+# set up filepaths
 scriptFolderPath = os.path.dirname(os.getcwd())
 mainFolderPath = os.path.dirname(scriptFolderPath)
 dataPath = (mainFolderPath + "/data/")
 csvFile = dataPath + "atlas-higgs-challenge-2014-v2.csv"
 
-	##create array out of csv-File
+## create array out of csv-File
 def csvToArray(csvF = csvFile, rows=818238,columns=35):
     csv_data = np.empty([rows,columns],"<U16")
     with open(csvF, 'r') as f:

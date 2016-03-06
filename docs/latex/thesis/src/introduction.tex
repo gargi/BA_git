@@ -5,15 +5,15 @@
 %\subsection{The Higgs Boson and the ATLAS experiment}
 In 1964, three teams of physicists predicted the existence of a sub-atomic particle to give mass to other elementary particles. This so-called \emph{Higgs Boson} became a key requirement of the \emph{Standard Model of particle physics}, a collection of theories that successfully predicted many other particles.
 
-The European Organization for Nuclear Research (CERN\footnote{CERN is the abbreviation of \emph{Conseil Europ\`een pour la Recherche Nucl\`eaire}, a council founded in 1952, assigned to establish a European research organization \cite{cernHP}.}) approved the construction of the \emph{Large Hadron Collider} (LHC) in 1994. This ring-formed machine with a  27-km circumference has been designed to make experiments to investigate some of the most important questions in particle physics. Finding evidence to confirm or falsify the existence of the Higgs Boson was a central purpose of the experiments \emph{ATLAS} and \emph{CMS}.
+The European Organization for Nuclear Research (CERN\footnote{CERN is the abbreviation of \emph{Conseil Europ\`een pour la Recherche Nucl\`eaire}, a council founded in 1952, assigned to establish a European research organization \cite{cernHP}.}) approved the construction of the \emph{Large Hadron Collider} (LHC) in 1994. This ring-shaped machine with a 27-km circumference has been designed to perform experiments investigating some of the most important questions in particle physics. Finding evidence to confirm or deny the existence of the Higgs Boson was a central aim of the experiments \emph{ATLAS} and \emph{CMS}.
 
-After CERN had announced its discovery July 2012, Peter Higgs and Fran\c{c}ois Englert were acknowledged with the Nobel Prize in Physics 2013 for predicting the Higgs Boson.
+After CERN had announced the discovery July 2012, Peter Higgs and Fran\c{c}ois Englert received the Nobel Prize in Physics 2013 for predicting the Higgs Boson.
 
 \subsection{Data processing of ATLAS}
 With the configuration used during its first runtime from 2009 to 2013, the LHC produced \emph{events} at a rate up to 40 million per second (40MHz). Each event contained at least one \emph{Proton-Proton} (\emph{pp}) interaction and hundreds of new particles. These were summarized in a raw-data vector of about a hundred thousand dimensions \cite{higgsPaper}. This data is reduced via three levels of hard- and software filters, so-called \emph{triggers}, discarding all but the most interesting data. This process scales the output data of ATLAS down to about 400\footnote{Used sources are not consistent about the amount of events \cite{higgsPaper, glig14, atlasHP}.} compressed events per second, adding up to 320 Mbyte of data per second, which is then recorded. This raw data is reconstructed by ATLAS to whole events in several stages. The first stage is called \emph{event selection}. In it, easily calculable information is derived from compressed events and is used to classify them for further analysis.\\
-This event selection estimates the probability for an event to be significant for the current task, like finding the Higgs Boson. 
+This event selection estimates the probability of an event being significant to the current task, like finding the Higgs Boson. 
 If the probability is high enough, the event will enter the next reconstruction stage to calculate other previously cut features that need more computation time. This event is called \emph{signal} and will be recorded as part of the so-called \emph{selection region}. The other events are referred as \emph{background} and are not processed further for the current task.\\
-These stages of reconstruction work time-budgeted and only calculate needed features of an event\footnote{The reconstruction of a full event was planned to cost 15 seconds, though this estimation relies on technical standards of 2008 \cite{atlasHP}.}.
+These stages of reconstruction work time-budgeted and only calculate necessary features of an event\footnote{The reconstruction of a full event was planned to cost 15 seconds, though this estimation relies on technical standards of 2008 \cite{atlasHP}.}.
 ATLAS extracts physics information from reconstructed events, containing only 0.1 Mbytes of data. This data describes actual physical objects, like particles and their trajectory.
 
 \subsubsection{Claiming a discovery}
@@ -26,7 +26,7 @@ After the discovery in 2012, CERN started to strengthen the evidence for the Hig
 In May 2014 CERN announced a challenge to be hosted on the data science platform Kaggle. Counting 1785 participating teams it was the most popular challenge on the website until early 2015.
 
 \subsubsection{Kaggle}
-Kaggle is an internet platform for data scientists, founded in 2010. Besides hosting challenges, its services include hosting public datasets, a job market for data scientists and "Kaggle Rankings", a scoreboard based on performances of community members in Kaggle's competitions. All these services are free to an individual member, but paid by businesses, e.g. for hosting a challenge. Further, Kaggle works as consultant to structure or prepare a challenge \cite{kaggle}.
+Kaggle is an internet platform for data scientists, founded in 2010. Besides hosting challenges, its services include hosting public datasets, a job market for data scientists and "Kaggle Rankings", a scoreboard based on performances of community members in Kaggle's competitions. All these services are free to an individual member, but paid by businesses, e.g. for hosting a challenge. Further, Kaggle acts in a consultancy role to structure or prepare a challenge \cite{kaggle}.
 
 \subsubsection{The leaderboard}\label{sec:lb}
 In Kaggle challenges, competitors are ranked in a leaderboard. Rank 1 is the participant who submitted a solution which achieved the best result on the evaluation method used in this challenge. In our case a submission is evaluated by its \emph{Approximate Median Significance} (AMS), a function derived in Chap. \ref{ch:challenge}.\\
@@ -69,10 +69,17 @@ After we derive the formal problem from the challenge's task, we conclude that c
 
 Chap. \ref{ch:methods} presents basic data science methodology and discusses several dependencies we need to consider in the choice of some simple approaches for classification in Sect. \ref{sec:logReg} and \ref{sec:kNN}. After these we will describe the more specific and complex methods \emph{Neural Networks} and \emph{Gradient Boosting Classification}.
 
-In Chap. \ref{ch:disc} we discuss the performance of the methods presented beforehand on the challenges data. We consider the impact of \emph{The Higgs Boson Machine Learning Challenge} on Kaggle and on data processing at CERN.
+In Chap. \ref{ch:disc} we discuss the performance of the methods presented beforehand on the challenge's data. We consider the impact of \emph{The Higgs Boson Machine Learning Challenge} on Kaggle and on data processing at CERN.
 
 The thesis is concluded by Chap. \ref{ch:conc}. We recapitulate the whole work and review key competences for succeeding on Kaggle.\\
 This is closed by a short personal view.
+
+\subsubsection{The source code}
+The source code created for this thesis has been uploaded to Github. This repository can be accessed under the URL:
+
+\url{https://github.com/gargi/BA_git}
+
+For information regarding the source code is found in Appendix \ref{app:code}.
 \pagebreak
 \clearpage
 

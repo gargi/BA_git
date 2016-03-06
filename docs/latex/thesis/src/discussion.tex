@@ -37,7 +37,7 @@ As stated in Sect. \ref{sec:lb}, we choose our best submissions by their public 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[trim=50 0 50 0,clip,width=\textwidth]{images/amscompare.pdf}
+	\includegraphics[trim=50 0 50 25,clip,width=\textwidth]{images/amscompare.pdf}
 	\\Benchmarks placed by challenge organizers have prefix bm.
 	\caption{Public and private AMS plotted to equivalent rank}
 	\label{fig:ranks}
@@ -52,7 +52,7 @@ Over all, kNN was the only method we used that profited heavily from \emph{exclu
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[trim=50 0 50 0,clip,width=\textwidth]{images/setperformance.pdf}
+	\includegraphics[trim=50 0 50 25,clip,width=\textwidth]{images/setperformance.pdf}
 	\\Note the set sizes, listed in Tab. \ref{tab:feats}.
 	\caption{Performances of classifiers for specific feature sets}
 	\label{fig:setperf}
@@ -86,7 +86,7 @@ where \begin{itemize}
 	\item $n$ is the number of considered rank pairs for the calculation for a specific subset of leaderboard entries, like \emph{Top 10\% of private rank}. By definition $n$ must be less than or equal to $N$.
 \end{itemize}
 
-This is a measurement for differences in ranking between public and private leaderboard. It is common for the Kaggle community to rate a competition by this criterion, a low score being good. Given the final rankings, Eq. \eqref{eq:shakeup} calculates a total Shake-up of 0.033 and 0.050 for the top 10\% of participants. Summarized, competitors criticized the challenge mainly by two criteria. First, the amount of provided training data was too low. Community members argue that more test data used for the public AMS could prevent choosing overfitted submissions for the private leaderboard and subsequently improve the total Shake-up\cite{kaggleForum1,kaggleForum2}. Second, while AMS evaluation was used due to its relation to actual particle physics, it worked suboptimal for the challenge.
+This is a measurement for differences in ranking between public and private leaderboard. It is common for the Kaggle community to rate a competition by this criterion, a low score being good. Given the final rankings, Eq. \eqref{eq:shakeup} calculates a total Shake-up of 0.033 and 0.050 for the top 10\% of participants. Summarized, competitors criticized the challenge mainly by two criteria. First, the amount of provided training data was too low. Community members argue that more test data used for the public AMS could prevent choosing overfitted submissions for the private leaderboard and subsequently improve the total Shake-up\cite{kaggleForum1,kaggleForum2}. Second, while AMS evaluation was used due to its relation to actual particle physics, it was suboptimal for the challenge.
 
 In CERN's following \emph{Machine Learning Challenge} on Kaggle, \emph{Flavours of Physics: Finding $\tau \rightarrow \mu\mu\mu$}, these two criteria were addressed. More test data was provided to the challenge and the evaluation was calculated by \emph{weighted AUC}. Due to its favourable properties, AUC has been used by a number of top participants as objective function \cite{diaz14}. Fig. \ref{fig:shakeup} visualizes the Shake-up of this challenge and CERNs second Kaggle Challenge, latter having a total Shake-up of 0.038 and 0.013 for the top 10\% of participants. The smaller Shake-up within the top ranks can be considered as improvement of the evaluation.
 However, it has not been stated that these differences resulted directly from insights gained in the first competition.

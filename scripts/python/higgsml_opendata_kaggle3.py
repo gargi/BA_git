@@ -11,12 +11,10 @@ import os
 import csv
 import math
 
-# startingKitFolderPath = os.path.dirname(os.getcwd())
 scriptFolderPath = os.path.dirname(os.getcwd())
-# scriptFolderPath = os.path.dirname(startingKitFolderPath)
 mainFolderPath = os.path.dirname(scriptFolderPath)
-dataPath = (mainFolderPath + "/Data")
-submissionPath = (dataPath + "/Submissions/")
+dataPath = (mainFolderPath + "/data")
+submissionPath = (dataPath + "/submissions/")
 
 def create_solution_dictionary(solution):
     """ Read solution file, return a dictionary with key EventId and value the row, as well as the header
@@ -92,7 +90,7 @@ def AMS(s, b):
 
 def calculateFor(submissionFile):
      
-    solutionFile = (dataPath + "/Atlas-higgs-challenge-2014-v2.csv")
+    solutionFile = (dataPath + "/atlas-higgs-challenge-2014-v2.csv")
     solutionDict,header = create_solution_dictionary(solutionFile)
     ilabel=header.index("Label")
     iid=header.index("EventId")
@@ -159,8 +157,8 @@ def calculateFor(submissionFile):
 
 
 if __name__ == "__main__":
-    #calculateFor(submissionPath + "toysubmission.csv")
-    #calculateFor(submissionPath + "subm_logReg.csv")
-    #calculateFor(submissionPath + "subm_knn.csv")
-    #calculateFor(submissionPath + "subm_gbc.csv")
+    calculateFor(submissionPath + "toysubmission.csv")
+    calculateFor(submissionPath + "subm_logReg.csv")
+    calculateFor(submissionPath + "subm_knn.csv")
+    calculateFor(submissionPath + "subm_gbc.csv")
     calculateFor(submissionPath + "subm_xgb.csv")

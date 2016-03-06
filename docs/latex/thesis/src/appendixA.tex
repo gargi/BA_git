@@ -1,13 +1,14 @@
-\section{The Code used for this Thesis}\label{app:code}
-The code can be accessed on Github via the URL \url{https://github.com/gargi/BA_git/}.
+\section{The Code used for this thesis}\label{app:code}
+The code can be accessed on Github via the URL \url{https://github.com/gargi/BA_git/}. All original code is placed in this repository's directory \texttt{scripts/python/}.
 
 To run any code it is required to unpack the data provided by opendata.cern. The file \texttt{atlas-higgs-challenge-2014-v2.csv.gz} is found in the directory \texttt{data}. Unpacking this file in place is sufficient.
 
-\subsection{Requirements}
-The functionality of the code has been successfully tested for Windows 8.1 64bit and Linux MINT 17.2 Rafaela.
-The Github release requires at least 500mb free Hard-disk space.
+\subsection*{Requirements}
+The functionality of the majority of the code has been successfully tested for Windows 8.1 64bit and Linux MINT 17.2 Rafaela. Code directly related to the xgboost package was only tested on Windows 8.1 64bit.
 
-\subsubsection{Software dependencies}
+The Github release requires at least 500 mb free hard disk space.
+
+\subsubsection*{Software dependencies}
 Any code for this thesis was created for following software dependencies, functionality for other versions has not been tested:
 
 \begin{center}
@@ -38,11 +39,12 @@ Any code for this thesis was created for following software dependencies, functi
 
 An installation guide for xgboost is provided within the package's documentation \cite{xgbdoc}.
 
-\subsection{Showcases}
+\subsection*{Showcases}
 With the notebook format, IPython provides a great way for explaining code stepwise. Since Github is able to render this format online in repositories an increasing number of public repositories use this way to introduce new users to their code.
 
-Several notebooks had been created as showcases for the code created and used in this thesis.\\
-It is recommended to work with them by following order:
+Several notebooks had been created as showcases for the code created and used in this thesis. They can be accessed and read directly on Github. They can be found in the directory \texttt{scripts/python/} and be run using jupyter and Python. PDF versions of each showcase are provided in the directory \texttt{docs/showcases/}, these files had been generated with jupyters \texttt{nbconvert} tool.
+
+Following order is recommended:
 
 \begin{enumerate}
 	\item \texttt{showcase\_kaggleData.ipynb}\\
@@ -56,3 +58,9 @@ It is recommended to work with them by following order:
 	\item \texttt{showcase\_xgboost.ipynb}\\
 			XGBoost is presented independent of the other classification methods.
 \end{enumerate}
+
+\subsection*{opendata.cern starting kit}
+With the opendata release CERN provides software examples, which can be accessed under \url{http://opendata.cern.ch/record/331}.
+This includes a Python script to perform AMS scoring like performed by the challenge's leaderboards. To confirm evaluation scores we calculated for our submissions, we used a slightly edited version of \texttt{higgsml\_opendata\_kaggle.py}.
+
+The original, unedited Python scripts provided by CERN can be found in the directory \texttt{scripts/python/HiggsML2014}.
