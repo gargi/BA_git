@@ -1,7 +1,9 @@
 # Classification of Data from the ATLAS experiment
 
 This is the software package created as expansion to the bachelor thesis by Michael Janschek.  
-To run most of the code, it is necessary to unpack `data/atlas-higgs-challenge-2014-v2.csv.gz`. 
+To run most of the code, it is necessary to unpack `data/atlas-higgs-challenge-2014-v2.csv.gz`.
+
+See [releases][0] for packed version 
 
 ## Contents
 * The thesis in pdf format: [docs/latex/thesis/bin/][1]
@@ -16,6 +18,7 @@ To run most of the code, it is necessary to unpack `data/atlas-higgs-challenge-2
 * [scikit-learn documentation][7]
 * [jupyter][8]
 
+[0]: https://github.com/gargi/BA_git/releases/tag/v1.0
 [1]: https://github.com/gargi/BA_git/tree/master/docs/latex/thesis/bin "Classification of Data from the ATLAS experiment"
 [2]: https://github.com/gargi/BA_git/tree/master/scripts/python "All the scripts"
 [3]: https://github.com/gargi/BA_git/tree/master/docs/showcases "Showcase PDFs"
