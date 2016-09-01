@@ -8,7 +8,7 @@ See [releases][0] for packed version
 ## Contents
 * The thesis in pdf format: [docs/latex/thesis/bin/][1]
 * The commented source code: [scripts/python/][2]
-* Notebooks as showcases for better understanding of the code: [scripts/python/][3]
+* Notebooks as showcases for better understanding of the code: [scripts/python/][2]
  * There are also pdf versions of the notebooks generated with jupyter's nbconvert tool:[docs/showcases/][3]
 
 ## Links
