@@ -78,3 +78,10 @@ data/latex/template/
 atlas-higgs-challenge-2014-v2.csv
 *.csv
 higgs.model.*
+*.png
+docs/latex/template/
+docs/latex/presentation/
+scripts/python/_noteClassification.ipynb
+scripts/python/_noteData.ipynb
+scripts/python/.ipynb_checkpoints/_noteClassification-checkpoint.ipynb
+scripts/python/.ipynb_checkpoints/_noteData-checkpoint.ipynb

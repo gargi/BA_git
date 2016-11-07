@@ -1,0 +1,64 @@
+\section{The Task}
+
+\begin{frame}
+	\begin{center}
+	\Large{The Task}
+	\end{center}
+\end{frame}
+
+\subsection{The Higgs Boson Machine Learning Challenge}
+\begin{frame}
+	\frametitle{The Higgs Boson Machine Learning Challenge}
+	\begin{center}
+	\includegraphics[width=0.6\textwidth]{images/challengelogo}
+	\end{center}
+	\begin{itemize}
+		\item Perform event selection on simulated data.
+		\item Classify events correctly to maximize evaluation metric.
+		\item Searched \emph{signal events} are $\mathrm{H}\rightarrow\tau\tau$ decay, \emph{background events} originate from three other processes.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{The data}
+	Simulated data allows precise labeling and importance weighting of events.
+	
+	\vspace{2ex}
+	250000 events for training, 550000 for testing.
+	\begin{itemize}
+		\item 1st feature is event ID
+		\item 30 features with physics information
+		\item 2 features with weighting and labeling (exclusive for training data)
+	\end{itemize}
+	\vspace{2ex}
+	\small{Challenge data can be recreated from \url{opendata.cern.ch}}
+\end{frame}
+
+\subsection{Approximate Median Significance}
+\begin{frame}
+	\frametitle{Approximate Median Significance}
+	\begin{minipage}{\textwidth}
+		$$\mathrm{AMS} = \sqrt{2 \left( \left( s+b+b_{reg} \right) \ln{ \left(1+ \frac{s}{b+b_{reg}}  \right)} - s \right)}  \mathrm{\hspace{1em},}$$
+	\end{minipage}
+	where
+	\begin{itemize}
+		\item $s$ is the sum of weights of \emph{true} signals
+		\item $b$ is the sum of weights of \emph{false} signals
+		\item $b_{reg} = 10$ is an artificial shift to b
+	\end{itemize}
+	
+	Related to statistical significance.\\
+	Used in particle physics to optimize the selection region.
+\end{frame}
+
+
+
+%\begin{frame}
+%	\frametitle{The task in a nutshell}
+%	\begin{figure}
+%		\includegraphics[width=\textwidth]{images/classification}	
+%		\caption{visualization of classification task}
+%	\end{figure}
+%
+%\end{frame}
+

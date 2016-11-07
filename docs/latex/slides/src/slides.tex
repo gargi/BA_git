@@ -1,0 +1,62 @@
+\documentclass[12pt]{beamer}
+%\usepackage{german}
+\usepackage[english]{babel}
+%\usepackage[usenames]{xcolor}
+\usepackage{graphicx}
+
+ \usepackage{amsmath} % Equations
+ \usepackage{amssymb} % Equations
+ \usepackage{eurosym} % defines \euro
+ \usepackage[mathletters]{ucs}
+
+
+
+\usepackage{sidecap}
+\usetheme{Antibes}
+\usecolortheme{dolphin}
+\usepackage{hyperref}
+\usepackage{mathtools}
+
+%%some color settings
+\definecolor{darkorange}{rgb}{.71,0.21,0.01}
+\definecolor{darkgreen}{rgb}{.12,.54,.11}
+\hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      %colorlinks=true,
+      urlcolor=blue,
+      %linkcolor=darkorange,
+      citecolor=darkgreen,
+      }
+
+
+
+\begin{document}
+\title{Classiﬁcation of data\\ from the ATLAS experiment}
+\author{Michael Janschek}
+\institute{HHU D\"usseldorf}
+\date{22. M\"arz 2016}
+
+	%Titelfolie
+	\begin{frame}
+		\maketitle
+	\end{frame}
+	
+	%Übersicht
+	\begin{frame}
+		\frametitle{Contents}
+		\tableofcontents
+	\end{frame}
+	
+	\input{intro}
+	\input{challenge}
+	\input{methods}
+	\input{impact}
+	
+	\begin{frame}[allowframebreaks]
+		\frametitle{References}
+		\bibliographystyle{alpha}
+		\setbeamertemplate{bibliography item}[text]
+		\bibliography{references}		
+	\end{frame}
+	
+\end{document}
